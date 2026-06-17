@@ -25,7 +25,7 @@ rectangle "Hệ thống tư vấn pháp luật AI" {
   usecase "Đăng ký" as UC_Register
   usecase "Đăng nhập" as UC_Login
 
-  usecase "Kích hoạt xác thực 2 lớp (2FA)" as UC_MFA
+  usecase "Quản lý bảo mật 2 lớp (2FA/TOTP)" as UC_MFA
   usecase "Quản lý hồ sơ cá nhân" as UC_Profile
   usecase "Đổi / Quên mật khẩu" as UC_Password
   usecase "Cấu hình cài đặt" as UC_Settings
