@@ -1,0 +1,18 @@
+[project]
+name = "docs-latex"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "environs>=15.0.1",
+    "loguru>=0.7.3",
+    "plantuml>=0.3.0",
+    "requests>=2.34.2",
+    "six>=1.17.0",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.6.0",
+]
