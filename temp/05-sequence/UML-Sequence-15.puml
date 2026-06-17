@@ -1,0 +1,27 @@
+@startuml
+actor "User" as User
+participant "Web Frontend" as Frontend
+participant "API Gateway\n(Kong)" as Kong
+participant "Settings Service" as SettingsService
+participant "Neon Database" as DB
+
+== Luồng 1: Lấy thông tin Cài đặt (Get Settings) ==
+User -> Frontend: Chọn menu cài đặt cá nhân
+activate Frontend
+
+Frontend -> Kong: GET /neon-setting-service \n[Headers: Authorization: Bearer <token>]
+activate Kong
+Kong -> SettingsService: Chuyển tiếp yêu cầu lấy cài đặt
+activate SettingsService
+SettingsService -> DB: Truy vấn danh sách cài đặt của User
+activate DB
+DB --> SettingsService: Trả về danh sách Key-Value cài đặt
+deactivate DB
+SettingsService --> Kong: Trả về JSON cài đặt (SettingItem[])
+deactivate SettingsService
+Kong --> Frontend: Trả về JSON cài đặt
+deactivate Kong
+
+Frontend -> User: Hiển thị các tuỳ chọn (Giao diện, Giọng nhân vật, RAG...)
+deactivate Frontend
+@enduml
