@@ -20,9 +20,9 @@ danh_sach_file_goc = [
     # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-03.png",
     # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-03.puml",
     # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-03.tex",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.png",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.puml",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.tex",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.2.png",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.2.puml",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.2.tex",
 ]
 
 # 2. Danh sách các đuôi file cần thêm vào
@@ -32,6 +32,7 @@ cac_duoi_can_them = [
     # "overview",
     ".1",
     ".2",
+    ".3",
     # "3",
     # "xxxxxxxxxxx",
     # "..."

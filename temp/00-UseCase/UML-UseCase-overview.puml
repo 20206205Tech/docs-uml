@@ -1,3 +1,6 @@
+
+
+
 @startuml
 left to right direction
 skinparam packageStyle rectangle
@@ -6,10 +9,19 @@ skinparam shadowing false
 actor "Guest" as Guest
 
 rectangle "Hệ thống tư vấn pháp luật AI" {
-  usecase   as UC
+  usecase "Xem trang chủ" as UC_Home
+  usecase "Xem giới thiệu hệ thống" as UC_Intro
+  usecase "Xem bảng giá gói cước" as UC_Pricing
+  usecase "Nghe thử giọng nói" as UC_SampleVoice
+  usecase "Đăng ký" as UC_Register
+  usecase "Đăng nhập" as UC_Login
+
+  UC_Home ..> UC_Intro : <<include>>
+  UC_Home ..> UC_Pricing : <<include>>
+  UC_Home ..> UC_SampleVoice : <<include>>
 }
 
-Guest -- UC
-
-
+Guest -- UC_Home
+Guest -- UC_Register
+Guest -- UC_Login
 @enduml
