@@ -1,7 +1,7 @@
 @startuml
 actor "Guest" as Guest
 participant "Web Frontend" as Frontend
-participant "Cloudflare R2 / Supabase Storage" as Storage
+participant "Bucket \n(Cloudflare R2 / Supabase Storage)" as Storage
 
 == Luồng Nghe thử mẫu giọng nói của nhân vật ==
 Guest -> Frontend: Click "Nghe thử" một nhân vật
