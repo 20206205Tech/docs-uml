@@ -6,7 +6,16 @@ left to right direction
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+actor "User" as User
 actor "Guest" as Guest
+
+actor "Supabase"   as Supabase   << System >>
+actor "Neon"       as Neon       << System >>
+
+
+User  -|> Guest
+
+
 
 rectangle "Hệ thống tư vấn pháp luật AI" {
   usecase "Xem trang chủ" as UC_Home
@@ -16,6 +25,11 @@ rectangle "Hệ thống tư vấn pháp luật AI" {
   usecase "Đăng ký" as UC_Register
   usecase "Đăng nhập" as UC_Login
 
+  usecase "Quản lý bảo mật 2 lớp (2FA/TOTP)" as UC_MFA
+  usecase "Quản lý hồ sơ cá nhân" as UC_Profile
+  usecase "Đổi / Quên mật khẩu" as UC_Password
+  usecase "Cấu hình cài đặt" as UC_Settings
+
   UC_Home ..> UC_Intro : <<include>>
   UC_Home ..> UC_Pricing : <<include>>
   UC_Home ..> UC_SampleVoice : <<include>>
@@ -24,4 +38,16 @@ rectangle "Hệ thống tư vấn pháp luật AI" {
 Guest -- UC_Home
 Guest -- UC_Register
 Guest -- UC_Login
+
+User -- UC_MFA
+User -- UC_Profile
+User -- UC_Password
+User -- UC_Settings
+
+UC_Register -- Supabase
+UC_Login -- Supabase
+UC_MFA -- Supabase
+UC_Profile -- Supabase
+UC_Password -- Supabase
+UC_Settings -- Neon
 @enduml

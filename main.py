@@ -3,26 +3,18 @@ from pathlib import Path
 
 # 1. Nhận danh sách các file gốc
 danh_sach_file_goc = [
-    # r'C:\Users\Admin\Documents\GitHub\docs-uml\temp\00-UseCase\UML-UseCase-.md',
-    # r'C:\Users\Admin\Documents\GitHub\docs-uml\temp\00-UseCase\UML-UseCase-.png',
-    # r'C:\Users\Admin\Documents\GitHub\docs-uml\temp\00-UseCase\UML-UseCase-.puml',
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\01-User\User.tex",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\02-BFD\BFD.png",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\02-BFD\BFD.puml",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\03-SubDomain\SubDomainMindMap.mmd",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\03-SubDomain\SubDomainMindMap.png",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\04-activity\UML-Activity-.md",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\04-activity\UML-Activity-.png",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\04-activity\UML-Activity-.puml",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.md",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.png",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.puml",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-03.png",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-03.puml",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-03.tex",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.2.png",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.2.puml",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-04.2.tex",
+    #     r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-07.png",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-07.puml",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-07.tex",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-08.png",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-08.puml",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-08.tex",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-09.png",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-09.puml",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-09.tex",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-10.png",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-10.puml",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-10.tex",
 ]
 
 # 2. Danh sách các đuôi file cần thêm vào
@@ -32,7 +24,7 @@ cac_duoi_can_them = [
     # "overview",
     ".1",
     ".2",
-    ".3",
+    # ".3",
     # "3",
     # "xxxxxxxxxxx",
     # "..."

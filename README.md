@@ -1,18 +1,14 @@
-Bạn Hãy xem các file có thay đổi chưa được git commit
+Để phát triển ứng dụng, Tôi đã dùng AI để vibe code.
 
+Hãy xem các file có thay đổi chưa được git commit
 (dùng git status và git diff --staged)
 
-C:\Users\Admin\Documents\GitHub\docs-uml\temp
+Tiếp theo tôi muốn bạn làm về
 
-Do bây giờ mới bắt đầu viết tài liệu nên các tài liệu hiện tại chỉ là mẫu
+Bắt buộc thực hiện chức năng bảo mật tài khoản bằng xác thực 2 lớp (2FA/TOTP)
 
-Cần chỉnh sửa lại
+quản lý hồ sơ thông tin cá nhân
 
-Tài liệu đầu tiên
+Quản lý thông tin đăng nhập (Đổi mật khẩu, Quên mật khẩu)
 
-Với người dùng Guest:
-
-Có thể xem trang chủ có
-giới thiệu,
-bảng giá gói cước,
-nghe thử các mẫu giọng nói của các nhân vật,
+quản lý thay đổi cài đặt
