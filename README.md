@@ -1,18 +1,21 @@
-Bạn Hãy xem các file có thay đổi chưa được git commit
+Để phát triển ứng dụng, Tôi đã dùng AI để vibe code.
 
+Hãy xem các file có thay đổi chưa được git commit
 (dùng git status và git diff --staged)
 
-C:\Users\Admin\Documents\GitHub\docs-uml\temp
+Tiếp theo tôi muốn bạn làm về
 
-Do bây giờ mới bắt đầu viết tài liệu nên các tài liệu hiện tại chỉ là mẫu
+chức năng 2fa
 
-Cần chỉnh sửa lại
+quản lý hồ sơ cá nhân
 
-Tài liệu đầu tiên
+quản lý thay đổi cài đặt
 
-Với người dùng Guest:
 
-Có thể xem trang chủ có
-giới thiệu,
-bảng giá gói cước,
-nghe thử các mẫu giọng nói của các nhân vật,
+theo tôi cần thêm
+
+
+actor "Supabase"   as Supabase   << System >>
+actor "Neon"       as Neon       << System >>
+
+vào
