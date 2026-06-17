@@ -23,14 +23,19 @@ wbsDiagram {
 
 * Hệ thống tư vấn pháp luật AI
 
-** Phân hệ Hỗ trợ
+** Phân hệ Hỗ trợ (Supporting Subdomain)
 *** Dịch vụ Nhân vật (Persona Service)
 **** Cung cấp danh sách nhân vật
 
-** Phân hệ Chung
+** Phân hệ Chung (Generic Subdomain)
 *** Dịch vụ Xác thực (Auth Service)
 **** Đăng ký tài khoản mới
 **** Đăng nhập hệ thống
+**** Kích hoạt bảo mật 2 lớp (2FA/TOTP)
+**** Quản lý đăng nhập (Đổi/Quên mật khẩu)
+**** Quản lý hồ sơ thông tin cá nhân
+*** Dịch vụ Cài đặt (Settings Service)
+**** Quản lý cấu hình cài đặt cá nhân
 *** Dịch vụ Thanh toán (Payment Service)
 **** Hiển thị bảng giá Gói dịch vụ VIP
 @endwbs
