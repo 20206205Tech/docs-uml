@@ -3,9 +3,12 @@ from pathlib import Path
 
 # 1. Nhận danh sách các file gốc
 danh_sach_file_goc = [
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.png",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.puml",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.tex",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.png",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.puml",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.tex",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.png",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.puml",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.tex",
 ]
 
 # 2. Danh sách các đuôi file cần thêm vào
@@ -24,15 +27,17 @@ cac_duoi_can_them = [
     # "-19",
     # "-20",
     # "-21",
-    "-22",
-    "-23",
-    "-24",
-    "-25",
-    "-26",
-    "-27",
-    "-28",
-    "-29",
-    "-30",
+    "41",
+    "42",
+    # "-22",
+    # "-23",
+    # "-24",
+    # "-25",
+    # "-26",
+    # "-27",
+    # "-28",
+    # "-29",
+    # "-30",
     # "-31",
     # "-32",
     # "-33",

@@ -1,0 +1,27 @@
+@startuml
+actor "Admin" as Admin
+participant "Web Frontend" as Frontend
+participant "API Gateway\n(Kong)" as Kong
+participant "Payment Service" as PaymentService
+participant "Payment DB" as DB
+
+== Luồng 2: Lưu trữ gói cước VIP (Archive Plan) ==
+Admin -> Frontend: Chọn gói cước, bấm "Lưu trữ" (Archive/Deactivate)
+activate Frontend
+Frontend -> Kong: DELETE /payment-service/v1/plans/:planId\n[Headers: Authorization: Bearer <token>]
+activate Kong
+Kong -> PaymentService: Chuyển tiếp yêu cầu xóa gói cước
+activate PaymentService
+
+PaymentService -> DB: UPDATE Plan SET isActive=false WHERE id=planId
+activate DB
+DB --> PaymentService: OK (Đã lưu trữ)
+deactivate DB
+
+PaymentService --> Kong: Trả về kết quả thành công (HTTP 200 OK)
+deactivate PaymentService
+Kong --> Frontend: Trả về kết quả thành công
+deactivate Kong
+Frontend --> Admin: Hiển thị thông báo "Đã lưu trữ gói cước thành công"
+deactivate Frontend
+@enduml
