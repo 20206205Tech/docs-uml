@@ -1,0 +1,40 @@
+@startuml
+actor "Admin" as Admin
+participant "Web Frontend" as Frontend
+participant "API Gateway\n(Kong)" as Kong
+participant "Persona Service" as PersonaService
+participant "ElevenLabs API" as ElevenLabs
+participant "Persona DB" as DB
+
+== Luồng Quản lý TTS Engine ElevenLabs (Create/Update Engine) ==
+Admin -> Frontend: Mở trang TTS Engine và nhập cấu hình ElevenLabs
+activate Frontend
+
+Frontend -> Kong: POST /persona-service/v1/tts-engines\n[Headers: Authorization: Bearer <token>]\n{ code, provider, apiKeyRef, modelId, defaultVoiceId, isActive }
+activate Kong
+Kong -> PersonaService: Chuyển tiếp yêu cầu tạo/cập nhật TTS Engine
+activate PersonaService
+
+PersonaService -> ElevenLabs: GET /v1/models\n[Headers: xi-api-key: <elevenlabs_api_key>]
+activate ElevenLabs
+ElevenLabs --> PersonaService: Trả về danh sách model khả dụng
+deactivate ElevenLabs
+
+PersonaService -> DB: UPSERT TTS Engine và cấu hình mặc định
+activate DB
+DB --> PersonaService: OK
+deactivate DB
+
+PersonaService -> DB: Ghi nhận trạng thái kết nối và thời điểm kiểm tra
+activate DB
+DB --> PersonaService: OK
+deactivate DB
+
+PersonaService --> Kong: Trả về thông tin TTS Engine đã lưu (HTTP 200 OK)
+deactivate PersonaService
+Kong --> Frontend: Trả về kết quả thành công
+deactivate Kong
+
+Frontend --> Admin: Hiển thị trạng thái "Kết nối ElevenLabs hợp lệ"
+deactivate Frontend
+@enduml

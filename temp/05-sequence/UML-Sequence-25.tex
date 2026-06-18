@@ -1,0 +1,34 @@
+\paragraph{Sơ đồ tuần tự Luồng Lưu trữ gói cước VIP}
+
+Luồng nghiệp vụ này mô tả cách thức Quản trị viên (Admin) thực hiện tạm ngưng hoặc lưu trữ (Archive) một gói cước VIP không còn kinh doanh trong hệ thống để ẩn gói cước khỏi tầm nhìn của người dùng thông thường nhưng vẫn giữ dữ liệu cho lịch sử đối chiếu.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.18]{pictures/UML-Sequence-25.png}
+\caption{Sơ đồ tuần tự Luồng Lưu trữ gói cước VIP}
+\label{fig:seq_archive_plan}
+\end{figure}
+
+\subparagraph{Các thành phần tham gia}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|p{5cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
+Admin & Actor & Quản trị viên thực hiện quản lý danh mục gói cước. \\ \hline
+Web Frontend & Component & Giao diện Admin hiển thị danh sách gói cước và nút lưu trữ. \\ \hline
+API Gateway (Kong) & Component & Định tuyến yêu cầu an toàn đến Payment Service và kiểm tra quyền Admin. \\ \hline
+Payment Service & Microservice & Tiếp nhận yêu cầu, xử lý lưu trữ các gói dịch vụ thanh toán. \\ \hline
+Payment Database & Database & Lưu trữ thông tin chi tiết về các gói cước (Plan). \\ \hline
+\end{tabular}
+\caption{Các thành phần tham gia luồng Lưu trữ gói cước VIP}
+\end{table}
+
+\subparagraph{Mô tả chi tiết}
+\begin{itemize}
+\item \textbf{Yêu cầu lưu trữ:} Admin tìm gói cước cần ngưng kinh doanh trong danh sách Admin Panel và click nút "Lưu trữ" (Archive/Deactivate).
+\item \textbf{Gửi yêu cầu:} Web Frontend gửi yêu cầu \texttt{DELETE /payment-service/v1/plans/:planId} qua Kong API Gateway với Bearer Token thích hợp. Kong xác thực và ủy quyền truy cập cho tài khoản Admin trước khi chuyển tiếp yêu cầu.
+\item \textbf{Xử lý vô hiệu hóa:} Payment Service nhận yêu cầu, thay vì xóa vật lý (Physical Delete) bản ghi (gây lỗi tham chiếu khóa ngoại cho các giao dịch lịch sử), dịch vụ thực hiện cập nhật mềm trường \texttt{isActive=false} của bản ghi trong Payment Database. Trạng thái này giúp ẩn gói cước này khỏi các truy vấn hiển thị bảng giá phía người dùng thông thường, và phản hồi kết quả HTTP 200 OK thành công.
+\end{itemize}
