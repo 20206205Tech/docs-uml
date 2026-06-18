@@ -10,11 +10,11 @@ actor "LiveKit" as LiveKit << System >>
 VIP -|> User
 
 rectangle "Chức năng dành cho VIP" {
-  usecase "Sử dụng reasoning nâng cao" as UC_AdvancedReasoning
-  usecase "Tải lên tài liệu" as UC_UploadDocument
-  usecase "Theo dõi trạng thái\nxử lý tài liệu" as UC_DocumentStatus
-  usecase "Thử lại xử lý\ntài liệu lỗi" as UC_RetryDocument
-  usecase "Đàm thoại trực tiếp với AI\nbằng giọng nói" as UC_VoiceChat
+  usecase "Sử dụng reasoning nâng cao" as UC_AdvancedReasoning #8b5cf6
+  usecase "Tải lên tài liệu" as UC_UploadDocument #ef4444
+  usecase "Theo dõi trạng thái\nxử lý tài liệu" as UC_DocumentStatus #ef4444
+  usecase "Thử lại xử lý\ntài liệu lỗi" as UC_RetryDocument #ef4444
+  usecase "Đàm thoại trực tiếp với AI\nbằng giọng nói" as UC_VoiceChat #8b5cf6
 }
 
 VIP -- UC_AdvancedReasoning #blue

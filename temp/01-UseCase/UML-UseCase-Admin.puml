@@ -10,11 +10,11 @@ actor "ElevenLabs" as ElevenLabs << System >>
 Admin -|> User
 
 rectangle "Chức năng dành cho Admin" {
-  usecase "Quản lý nhân vật" as UC_ManagePersona
-  usecase "Quản lý giọng nói\n(Engine, Voice)" as UC_ManageVoice
-  usecase "Đồng bộ giọng nói\nElevenLabs" as UC_SyncElevenLabs
-  usecase "Quản lý gói cước VIP" as UC_ManagePlans
-  usecase "Theo dõi luồng dữ liệu" as UC_PipelineReport
+  usecase "Quản lý nhân vật" as UC_ManagePersona #06b6d4
+  usecase "Quản lý giọng nói\n(Engine, Voice)" as UC_ManageVoice #06b6d4
+  usecase "Đồng bộ giọng nói\nElevenLabs" as UC_SyncElevenLabs #06b6d4
+  usecase "Quản lý gói cước VIP" as UC_ManagePlans #f59e0b
+  usecase "Theo dõi luồng dữ liệu" as UC_PipelineReport #64748b
 
   UC_SyncElevenLabs ..> UC_ManageVoice : <<extend>>
 }

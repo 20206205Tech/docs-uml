@@ -7,13 +7,13 @@ actor "Guest" as Guest
 actor "Supabase" as Supabase << System >>
 
 rectangle "Chức năng dành cho Guest" {
-  usecase "Xem trang chủ" as UC_Home
-  usecase "Xem giới thiệu hệ thống" as UC_Intro
-  usecase "Xem bảng giá gói cước" as UC_Pricing
-  usecase "Nghe thử giọng nói" as UC_SampleVoice
-  usecase "Đăng ký" as UC_Register
-  usecase "Đăng nhập" as UC_Login
-  usecase "Xem chia sẻ công khai" as UC_PublicShare
+  usecase "Xem trang chủ" as UC_Home #e5e7eb
+  usecase "Xem giới thiệu hệ thống" as UC_Intro #e5e7eb
+  usecase "Xem bảng giá gói cước" as UC_Pricing #f59e0b
+  usecase "Nghe thử giọng nói" as UC_SampleVoice #06b6d4
+  usecase "Đăng ký" as UC_Register #00a86b
+  usecase "Đăng nhập" as UC_Login #00a86b
+  usecase "Xem chia sẻ công khai" as UC_PublicShare #8b5cf6
 
   UC_Home ..> UC_Intro : <<include>>
   UC_Home ..> UC_Pricing : <<include>>
