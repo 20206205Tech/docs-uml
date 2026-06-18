@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Conversation Service" as ConversationService
-participant "Conversation DB" as ConversationDB
+database "Conversation DB" as ConversationDB
 participant "Chatbot Service\ngRPC" as ChatbotService
 database "Chatbot DB" as ChatbotDB
 

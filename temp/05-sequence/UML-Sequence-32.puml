@@ -1,7 +1,7 @@
 @startuml
 participant "Payment Service" as PaymentService
-participant "Payment DB" as DB
-participant "Kafka (Event Bus)" as Kafka
+database "Payment DB" as DB
+queue "Kafka (Event Bus)" as Kafka
 participant "Consumer Service" as ConsumerService
 
 == Pha 4: Transactional Outbox đồng bộ trạng thái VIP ==

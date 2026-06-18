@@ -3,7 +3,7 @@ actor "Admin" as Admin
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Payment Service" as PaymentService
-participant "Payment DB" as DB
+database "Payment DB" as DB
 
 == Luồng 2: Lưu trữ gói thuê bao VIP (Archive Plan) ==
 Admin -> Frontend: Chọn gói thuê bao VIP, bấm "Lưu trữ" (Archive/Deactivate)

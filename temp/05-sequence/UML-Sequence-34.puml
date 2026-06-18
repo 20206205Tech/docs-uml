@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Payment Service" as PaymentService
-participant "Payment DB" as DB
+database "Payment DB" as DB
 
 == Luồng nghiệp vụ: Tra cứu lịch sử giao dịch (Get Transaction History) ==
 

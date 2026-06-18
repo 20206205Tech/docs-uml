@@ -3,7 +3,7 @@ actor "Admin" as Admin
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Persona Service" as PersonaService
-participant "Persona DB" as DB
+database "Persona DB" as DB
 
 == Luồng Quản lý Engine giọng nói (Create/Update Engine) ==
 Admin -> Frontend: Mở trang quản lý Engine và nhập cấu hình

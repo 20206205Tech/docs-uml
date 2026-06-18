@@ -4,7 +4,7 @@ participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Persona Service" as PersonaService
 participant "Cloud Storage" as Storage
-participant "Persona DB" as DB
+database "Persona DB" as DB
 
 == Luồng Quản lý nhân vật (Tạo mới / Cập nhật Persona) ==
 opt Tải lên Avatar nhân vật

@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Settings Service" as SettingsService
-participant "Neon Database" as DB
+database "Neon Database" as DB
 
 == Luồng 1: Lấy thông tin Cài đặt (Get Settings) ==
 User -> Frontend: Chọn menu cài đặt cá nhân

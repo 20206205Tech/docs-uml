@@ -3,7 +3,7 @@ actor "Admin" as Admin
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Payment Service" as PaymentService
-participant "Payment DB" as DB
+database "Payment DB" as DB
 
 == Luồng 1: Tạo mới gói thuê bao VIP (Create Plan) ==
 Admin -> Frontend: Nhập thông tin gói thuê bao VIP (name, durationMonths, price, features)

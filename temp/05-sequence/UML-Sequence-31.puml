@@ -1,7 +1,7 @@
 @startuml
 participant "Payment Gateway\n(VNPay/MoMo)" as Gateway
 participant "Payment Service" as PaymentService
-participant "Payment DB" as DB
+database "Payment DB" as DB
 
 == Pha 3: Xác thực IPN và cập nhật giao dịch ==
 
