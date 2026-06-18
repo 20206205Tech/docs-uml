@@ -2,9 +2,9 @@
 actor User as User
 participant "Conversation Service" as ConvService
 participant "Conversation DB" as ConvDB
-participant "Chatbot Service\n(gRPC)" as Chatbot
+participant "Chatbot Service\n(gRPC + LangGraph)" as Chatbot
 participant "Chatbot DB" as ChatbotDB
-participant "LangGraph + LLM" as LLM
+participant "LLM + VectorDB" as LLM
 
 == Khởi tạo kết nối ==
 User -> ConvService: POST /code-conversation-service/chats/stream (Yêu cầu SSE)
@@ -36,11 +36,11 @@ activate ChatbotDB
 ChatbotDB --> Chatbot: OK
 deactivate ChatbotDB
 
-Chatbot -> LLM: Kích hoạt luồng LangGraph + LLM
+Chatbot -> LLM: Gọi truy vấn RAG (Truy xuất dữ liệu & Gọi LLM)
 activate LLM
 
 par Luồng sinh dữ liệu (Stream)
-    loop Nhận chunks từ LangGraph (type: content / status / metadata)
+    loop Nhận chunks từ LLM (type: content / status / metadata)
         LLM --> Chatbot: Trả về Chunk dữ liệu
         Chatbot --> ConvService: Gửi AskResponse (id, reply, type) qua gRPC
         ConvService --> User: Gửi SSE Event { type, message }
