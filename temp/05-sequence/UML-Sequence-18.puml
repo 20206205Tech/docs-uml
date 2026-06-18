@@ -6,7 +6,7 @@ participant "RabbitMQ Broker" as RabbitMQ
 participant "Chatbot Service\n(Python)" as Chatbot
 participant "Chatbot DB" as ChatbotDB
 
-== User gửi yêu cầu xóa ==
+== Luồng Xóa cuộc trò chuyện ==
 User -> Conv: DELETE /code-conversation-service/chats/:id
 activate Conv
 

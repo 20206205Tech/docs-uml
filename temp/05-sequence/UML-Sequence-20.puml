@@ -7,7 +7,7 @@ participant "Chatbot Service" as Chatbot
 participant "Chatbot DB" as ChatbotDB
 participant "R2 Object Storage" as R2
 
-== Gửi yêu cầu thu hồi ==
+== Luồng Thu hồi chia sẻ cuộc trò chuyện ==
 User -> Conv: POST /code-conversation-service/shares/:id/revoke
 activate Conv
 

@@ -6,7 +6,7 @@ participant "Chatbot Service\n(gRPC + LangGraph)" as Chatbot
 participant "Chatbot DB" as ChatbotDB
 participant "LLM + VectorDB" as LLM
 
-== Khởi tạo kết nối ==
+== Luồng Nhắn tin văn bản (Chat Flow) ==
 User -> ConvService: POST /code-conversation-service/chats/stream (Yêu cầu SSE)
 activate ConvService
 

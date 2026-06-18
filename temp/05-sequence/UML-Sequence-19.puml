@@ -7,7 +7,7 @@ participant "Chatbot Service" as Chatbot
 participant "Chatbot DB" as ChatbotDB
 participant "R2 Object Storage" as R2
 
-== Gửi yêu cầu chia sẻ ==
+== Luồng Tạo Chia sẻ cuộc trò chuyện ==
 User -> Conv: POST /code-conversation-service/chats/share\n(Kèm chatId & lastMessageId)
 activate Conv
 
