@@ -31,16 +31,16 @@ wbsDiagram {
 **** Hiển thị bảng giá gói dịch vụ VIP
 **** Mua gói cước VIP
 **** Tra cứu lịch sử giao dịch
-**** Quản trị các gói dịch vụ (Dành cho ADMIN)
-**** Tích hợp cổng thanh toán (VNPay, MoMo, ZaloPay, SePay, ...)
+**** Quản trị các gói dịch vụ (ADMIN)
+**** Tích hợp cổng thanh toán
 
 ** Phân hệ Cốt lõi (Core Subdomain)
 *** Dịch vụ Trò chuyện (Conversation Service)
 **** Hỏi đáp pháp lý
 **** Đánh dấu trò chuyện
 **** Chia sẻ trò chuyện
-**** Truy vấn suy luận pháp lý (Dành cho VIP)
-**** Đàm thoại thời gian thực qua giọng nói (Voice - Dành cho VIP)
+**** Truy vấn suy luận pháp lý (VIP)
+**** Đàm thoại thời gian thực qua giọng nói (VIP)
 *** Dịch vụ Chatbot (Chatbot Service)
 **** Xử lý giao tiếp
 **** Truy xuất lịch sử trò chuyện
@@ -49,15 +49,15 @@ wbsDiagram {
 
 ** Phân hệ Hỗ trợ (Supporting Subdomain)
 *** Dịch vụ Tài liệu (Document Service)
-**** Tải lên tài liệu văn bản/hợp đồng (Dành cho VIP)
+**** Tải lên tài liệu (VIP)
 **** Theo dõi trạng thái xử lý tài liệu
 **** Thử lại xử lý tài liệu do bị lỗi
 *** Dịch vụ Nhân vật (Persona Service)
 **** Cung cấp danh sách nhân vật
-**** Quản trị nhân vật ảo (Dành cho ADMIN)
-**** Quản trị TTS Engine (Dành cho ADMIN)
-**** Quản trị cấu hình giọng nói ElevenLabs (Dành cho ADMIN)
+**** Quản trị nhân vật ảo (ADMIN)
+**** Quản trị TTS Engine (ADMIN)
+**** Quản trị cấu hình giọng nói ElevenLabs (ADMIN)
 *** Quản trị Bảng điều khiển (Admin Dashboard)
-**** Báo cáo thống kê Pipeline văn bản pháp luật (Nguồn vbpl.vn)
-**** Báo cáo thống kê Pipeline Pháp Điển
+**** Luồng dữ liệu VBPL
+**** Luồng dữ liệu Pháp Điển
 @endwbs
