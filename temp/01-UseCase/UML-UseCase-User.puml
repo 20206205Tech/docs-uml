@@ -17,9 +17,9 @@ rectangle "Chức năng dành cho User" {
   usecase "Quản lý hồ sơ cá nhân" as UC_Profile #00a86b
   usecase "Đổi / Quên mật khẩu" as UC_Password #00a86b
 
-  usecase "Hỏi đáp pháp lý" as UC_Chat #8b5cf6
-  usecase "Đánh dấu trò chuyện" as UC_Bookmark #8b5cf6
-  usecase "Chia sẻ trò chuyện" as UC_Share #8b5cf6
+  usecase "Hỏi đáp pháp lý" as UC_Chat #ec4899
+  usecase "Đánh dấu trò chuyện" as UC_Bookmark #ec4899
+  usecase "Chia sẻ trò chuyện" as UC_Share #ec4899
 
   usecase "Mua gói cước VIP" as UC_PurchaseVIP #f59e0b
   usecase "Tra cứu lịch sử giao dịch" as UC_TransactionHistory #f59e0b

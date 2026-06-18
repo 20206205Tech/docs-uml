@@ -13,7 +13,7 @@ rectangle "Chức năng dành cho Guest" {
   usecase "Nghe thử giọng nói" as UC_SampleVoice #06b6d4
   usecase "Đăng ký" as UC_Register #00a86b
   usecase "Đăng nhập" as UC_Login #00a86b
-  usecase "Xem chia sẻ công khai" as UC_PublicShare #8b5cf6
+  usecase "Xem chia sẻ công khai" as UC_PublicShare #ec4899
 
   UC_Home ..> UC_Intro : <<include>>
   UC_Home ..> UC_Pricing : <<include>>
