@@ -6,7 +6,7 @@ participant "Persona Service" as PersonaService
 participant "Cloud Storage" as Storage
 participant "Persona DB" as DB
 
-== Luồng Quản lý nhân vật ảo (Tạo mới / Cập nhật Persona) ==
+== Luồng Quản lý nhân vật (Tạo mới / Cập nhật Persona) ==
 opt Tải lên Avatar nhân vật
     Admin -> Frontend: Chọn ảnh đại diện nhân vật
     Frontend -> Kong: POST /code-persona-service/personas/upload-avatar\n[Headers: Authorization: Bearer <token>] (Multipart File)

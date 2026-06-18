@@ -54,7 +54,7 @@ wbsDiagram {
 **** Thử lại xử lý tài liệu do bị lỗi
 *** Dịch vụ Nhân vật (Persona Service)
 **** Cung cấp danh sách nhân vật
-**** Quản trị nhân vật ảo (ADMIN)
+**** Quản trị nhân vật (ADMIN)
 **** Quản trị TTS Engine (ADMIN)
 **** Quản trị giọng nói (Voices) (ADMIN)
 **** Đồng bộ giọng nói ElevenLabs (ADMIN)
