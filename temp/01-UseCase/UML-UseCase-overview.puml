@@ -1,0 +1,63 @@
+
+
+
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "User" as User
+actor "Guest" as Guest
+
+actor "Supabase"   as Supabase   << System >>
+actor "Neon"       as Neon       << System >>
+
+
+User  -|> Guest
+
+
+
+
+
+
+
+rectangle "Hệ thống tư vấn pháp luật AI" {
+  usecase "Xem trang chủ" as UC_Home
+  usecase "Xem giới thiệu hệ thống" as UC_Intro
+  usecase "Xem bảng giá gói cước" as UC_Pricing
+  usecase "Nghe thử giọng nói" as UC_SampleVoice
+  usecase "Đăng ký" as UC_Register
+  usecase "Đăng nhập" as UC_Login
+
+  usecase "Quản lý bảo mật 2 lớp (2FA/TOTP)" as UC_MFA
+  usecase "Quản lý hồ sơ cá nhân" as UC_Profile
+  usecase "Đổi / Quên mật khẩu" as UC_Password
+  usecase "Cấu hình cài đặt" as UC_Settings
+  usecase "Hỏi đáp pháp lý" as UC_Chat
+  usecase "Đánh dấu trò chuyện" as UC_Bookmark
+  usecase "Chia sẻ trò chuyện" as UC_Share
+
+  UC_Home ..> UC_Intro : <<include>>
+  UC_Home ..> UC_Pricing : <<include>>
+  UC_Home ..> UC_SampleVoice : <<include>>
+}
+
+Guest -- UC_Home
+Guest -- UC_Register
+Guest -- UC_Login
+
+User -- UC_MFA
+User -- UC_Profile
+User -- UC_Password
+User -- UC_Settings
+User -- UC_Chat
+User -- UC_Bookmark
+User -- UC_Share
+
+UC_Register -- Supabase
+UC_Login -- Supabase
+UC_MFA -- Supabase
+UC_Profile -- Supabase
+UC_Password -- Supabase
+UC_Settings -- Neon
+@enduml
