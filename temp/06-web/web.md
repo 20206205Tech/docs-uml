@@ -62,7 +62,7 @@
 
 <!--  -->
 
-![alt text](plan-list.png)
+![alt text](pay-plan-list.png)
 
 ![alt text](pay-his.png)
 
@@ -70,4 +70,4 @@
 ![alt text](pay-suc.png)
 
 
-![alt text](pay-his.png)
+![alt text](pay-plan-with-ok.png)
