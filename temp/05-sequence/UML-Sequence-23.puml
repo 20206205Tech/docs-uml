@@ -10,7 +10,7 @@ participant "Persona DB" as DB
 Admin -> Frontend: Mở trang Cấu hình giọng nói, bấm "Đồng bộ từ ElevenLabs"
 activate Frontend
 
-Frontend -> Kong: POST /persona-service/v1/voices/sync-elevenlabs\n[Headers: Authorization: Bearer <token>]
+Frontend -> Kong: POST /code-persona-service/voices/sync-elevenlabs\n[Headers: Authorization: Bearer <token>]
 activate Kong
 Kong -> PersonaService: Chuyển tiếp yêu cầu đồng bộ
 activate PersonaService

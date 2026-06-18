@@ -6,7 +6,6 @@ Luồng nghiệp vụ này mô tả quy trình người dùng thực hiện đá
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-21.png}
 \caption{Sơ đồ tuần tự Đánh dấu cuộc trò chuyện}
-\label{fig:seq_bookmark}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -28,8 +27,8 @@ Neon Database & Database & Lưu trữ các thư mục bookmark (BookmarkFolder) 
 
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
-\item Khi người dùng nhấn nút "Bookmark" trên giao diện, Web Frontend gửi yêu cầu `GET /bookmarks` để lấy danh sách thư mục hiện có của người dùng và hiển thị lên giao diện.
-\item Nếu người dùng muốn tạo thư mục mới, họ nhập tên thư mục và Frontend gửi yêu cầu `POST /bookmarks` với dữ liệu `folderName`. Hệ thống sẽ tạo thư mục mới trong Neon Database và cập nhật lại danh sách trên màn hình.
-\item Người dùng chọn thư mục mục tiêu, điền ghi chú cá nhân và nhấn nút "Lưu". Frontend gửi yêu cầu `PUT /bookmarks/:folderId/item` kèm theo tham số `chatId` và `note`.
+\item Khi người dùng nhấn nút "Bookmark" trên giao diện, Web Frontend gửi yêu cầu \texttt{GET /bookmarks} để lấy danh sách thư mục hiện có của người dùng và hiển thị lên giao diện.
+\item Nếu người dùng muốn tạo thư mục mới, họ nhập tên thư mục và Frontend gửi yêu cầu \texttt{POST /bookmarks} với dữ liệu \texttt{folderName}. Hệ thống sẽ tạo thư mục mới trong Neon Database và cập nhật lại danh sách trên màn hình.
+\item Người dùng chọn thư mục mục tiêu, điền ghi chú cá nhân và nhấn nút "Lưu". Frontend gửi yêu cầu \texttt{PUT /bookmarks/:folderId/item} kèm theo tham số \texttt{chatId} và \texttt{note}.
 \item Conversation Service kiểm tra sự tồn tại của cuộc hội thoại và thực hiện lưu trữ hoặc cập nhật bản ghi Bookmark vào Neon Database, sau đó trả về phản hồi thành công để cập nhật giao diện của người dùng.
 \end{itemize}

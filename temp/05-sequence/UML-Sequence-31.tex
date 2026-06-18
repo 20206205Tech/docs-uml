@@ -1,0 +1,31 @@
+\paragraph{Sơ đồ tuần tự Pha xác thực IPN và cập nhật giao dịch VIP}
+
+Pha này mô tả quá trình Payment Service xác minh chữ ký callback, khóa transaction cần cập nhật, đánh dấu giao dịch thành công, kích hoạt subscription và ghi sự kiện \texttt{SubscriptionPurchasedEvent} vào bảng Outbox.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.18]{pictures/UML-Sequence-31.png}
+\caption{Sơ đồ tuần tự Pha xác thực IPN và cập nhật giao dịch VIP}
+\end{figure}
+
+\subparagraph{Các thành phần tham gia}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|p{5cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
+Payment Gateway & External Service & Gửi callback/IPN và hỗ trợ kiểm tra tính hợp lệ của dữ liệu thanh toán. \\ \hline
+Payment Service & Microservice & Xác thực IPN, cập nhật transaction/subscription và ghi outbox event. \\ \hline
+Payment DB & Database & Lưu transaction, subscription và sự kiện Outbox. \\ \hline
+\end{tabular}
+\caption{Các thành phần tham gia pha xác thực IPN và cập nhật giao dịch VIP}
+\end{table}
+
+\subparagraph{Mô tả chi tiết}
+\begin{itemize}
+\item \textbf{Xác thực callback:} Payment Service kiểm tra chữ ký và tính hợp lệ của IPN.
+\item \textbf{Cập nhật trạng thái:} Transaction được cập nhật thành \texttt{SUCCESS}; Subscription được cập nhật thành \texttt{ACTIVE} cùng kỳ hạn sử dụng.
+\item \textbf{Ghi sự kiện:} Service ghi \texttt{SubscriptionPurchasedEvent} vào Outbox để đồng bộ bất đồng bộ sang các service khác.
+\end{itemize}

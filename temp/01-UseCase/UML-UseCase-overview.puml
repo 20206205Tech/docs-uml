@@ -1,6 +1,3 @@
-
-
-
 @startuml
 left to right direction
 skinparam packageStyle rectangle
@@ -10,12 +7,14 @@ actor "Admin" as Admin
 actor "User" as User
 actor "Guest" as Guest
 
+actor "ElevenLabs" as ElevenLabs << System >>
 actor "Supabase"   as Supabase   << System >>
-actor "Neon API"       as NeonAPI       << System >>
-
+actor "Neon API"   as NeonAPI    << System >>
+actor "Payment Gateway" as PaymentGateway << System >>
 
 User  -|> Guest
 Admin -|> User
+
 rectangle "Hệ thống tư vấn pháp luật AI" {
   usecase "Xem trang chủ" as UC_Home
   usecase "Xem giới thiệu hệ thống" as UC_Intro
@@ -31,6 +30,8 @@ rectangle "Hệ thống tư vấn pháp luật AI" {
   usecase "Hỏi đáp pháp lý" as UC_Chat
   usecase "Đánh dấu trò chuyện" as UC_Bookmark
   usecase "Chia sẻ trò chuyện" as UC_Share
+  usecase "Mua gói cước VIP" as UC_PurchaseVIP
+  usecase "Tra cứu lịch sử giao dịch" as UC_TransactionHistory
 
   usecase "Quản lý nhân vật" as UC_ManagePersona
   usecase "Quản lý TTS Engine" as UC_ManageTtsEngine
@@ -54,6 +55,8 @@ User -- UC_Settings
 User -- UC_Chat
 User -- UC_Bookmark
 User -- UC_Share
+User -- UC_PurchaseVIP
+User -- UC_TransactionHistory
 
 Admin -- UC_ManagePersona
 Admin -- UC_ManageTtsEngine
@@ -61,10 +64,14 @@ Admin -- UC_ManageVoice
 Admin -- UC_ManagePlans
 Admin -- UC_PipelineReport
 
-UC_Register -- Supabase
-UC_Login -- Supabase
-UC_MFA -- Supabase
-UC_Profile -- Supabase
-UC_Password -- Supabase
-UC_Settings -- NeonAPI
+' SỬA TẠI ĐÂY: Tăng số lượng gạch ngang để đẩy System sang phải
+UC_Register ---- Supabase
+UC_Login ---- Supabase
+UC_MFA ---- Supabase
+UC_Profile ---- Supabase
+UC_Password ---- Supabase
+
+UC_Settings --- NeonAPI
+UC_PurchaseVIP --- PaymentGateway
+UC_ManageVoice --- ElevenLabs
 @enduml

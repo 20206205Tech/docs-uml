@@ -1,0 +1,24 @@
+@startuml
+participant "Payment Service" as PaymentService
+participant "Supabase (Auth)" as Supabase
+participant "Email Service" as Email
+actor "User" as User
+
+== Pha 5: Gửi email xác nhận thanh toán ==
+
+note over PaymentService: Local event handler xử lý\nSubscriptionPurchasedEvent
+activate PaymentService
+
+PaymentService -> Supabase: getProfile(userId)\nLấy email và tên người dùng
+activate Supabase
+Supabase --> PaymentService: Trả về fullName & email
+deactivate Supabase
+
+PaymentService -> Email: sendPaymentSuccessEmail\n(fullName, email, plan, periodEnd)
+activate Email
+Email --> PaymentService: Gửi mail thành công
+deactivate Email
+
+PaymentService --> User: Email thông báo thanh toán thành công
+deactivate PaymentService
+@enduml

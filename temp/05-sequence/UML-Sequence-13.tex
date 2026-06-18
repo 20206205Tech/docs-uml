@@ -6,7 +6,6 @@ Luồng nghiệp vụ này mô tả quá trình xác thực token khi người d
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-13.png}
 \caption{Sơ đồ tuần tự Xác nhận liên kết từ Email}
-\label{fig:seq_recovery_verify}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -29,6 +28,6 @@ Web Frontend & Component & Ứng dụng Next.js nhận callback, lưu Access Tok
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
 \item Người dùng click vào link trong email. Yêu cầu chuyển qua Kong Gateway tới Auth Service để đối chiếu token trong Database.
-\item Nếu hợp lệ, Auth Service trả về HTTP 302 Redirect hướng trình duyệt của người dùng đến địa chỉ `/auth/callback?type=recovery` của Web Frontend kèm theo token tạm trong URL Hash.
-\item Frontend nhận callback, lưu trữ token tạm thời từ Hash và chuyển hướng người dùng sang trang đặt lại mật khẩu (`/auth/reset-password`).
+\item Nếu hợp lệ, Auth Service trả về HTTP 302 Redirect hướng trình duyệt của người dùng đến địa chỉ \texttt{/auth/callback?type=recovery} của Web Frontend kèm theo token tạm trong URL Hash.
+\item Frontend nhận callback, lưu trữ token tạm thời từ Hash và chuyển hướng người dùng sang trang đặt lại mật khẩu (\texttt{/auth/reset-password}).
 \end{itemize}

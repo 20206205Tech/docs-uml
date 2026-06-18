@@ -6,7 +6,6 @@ Luồng nghiệp vụ này mô tả quy trình người dùng tải thông tin c
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-10.png}
 \caption{Sơ đồ tuần tự Xem và Cập nhật Tên hiển thị}
-\label{fig:seq_profile_update}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -21,13 +20,13 @@ User & Actor & Người dùng xem và thay đổi thông tin cá nhân. \\ \hlin
 Web Frontend & Component & Giao diện Next.js hiển thị và tiếp nhận thông tin cập nhật từ người dùng. \\ \hline
 API Gateway (Kong) & Component & Định tuyến yêu cầu REST API tới PostgREST. \\ \hline
 Auth Service (PostgREST) & Component & Dịch vụ truy vấn và cập nhật dữ liệu trực tiếp trong Database. \\ \hline
-Database & Database & Cơ sở dữ liệu Postgres lưu bảng `profiles`. \\ \hline
+Database & Database & Cơ sở dữ liệu Postgres lưu bảng \texttt{profiles}. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia luồng Xem và Cập nhật Tên hiển thị}
 \end{table}
 
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
-\item Người dùng truy cập trang Hồ sơ. Frontend gửi yêu cầu `GET /profiles?id=eq.{userId}` qua Gateway để lấy thông tin hiển thị.
-\item Người dùng sửa tên hiển thị và nhấn Lưu. Frontend thực hiện cuộc gọi API `PATCH /profiles?id=eq.{userId}` kèm tham số `full_name` để thực hiện cập nhật.
+\item Người dùng truy cập trang Hồ sơ. Frontend gửi yêu cầu \texttt{GET /profiles?id=eq.\{userId\}} qua Gateway để lấy thông tin hiển thị.
+\item Người dùng sửa tên hiển thị và nhấn Lưu. Frontend thực hiện cuộc gọi API \texttt{PATCH /profiles?id=eq.\{userId\}} kèm tham số \texttt{full\_name} để thực hiện cập nhật.
 \end{itemize}

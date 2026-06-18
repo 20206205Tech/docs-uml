@@ -1,0 +1,38 @@
+\paragraph{Sơ đồ tuần tự Luồng Tra cứu lịch sử giao dịch}
+
+Luồng nghiệp vụ này mô tả quy trình người dùng (User) thực hiện tra cứu lại danh sách các giao dịch thanh toán mua gói cước VIP trong lịch sử tài khoản của mình thông qua giao diện ứng dụng.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.18]{pictures/UML-Sequence-34.png}
+\caption{Sơ đồ tuần tự Luồng Tra cứu lịch sử giao dịch}
+\end{figure}
+
+\subparagraph{Các thành phần tham gia}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|p{5cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
+User & Actor & Người dùng yêu cầu tra cứu lịch sử giao dịch cá nhân. \\ \hline
+Web Frontend & Component & Giao diện hiển thị danh sách giao dịch dưới dạng bảng. \\ \hline
+API Gateway (Kong) & Component & Xác thực token người dùng và định tuyến yêu cầu. \\ \hline
+Payment Service & Microservice & Tiếp nhận yêu cầu, truy vấn dữ liệu giao dịch từ cơ sở dữ liệu. \\ \hline
+Payment Database & Database & Lưu trữ thông tin chi tiết về lịch sử giao dịch (Transaction). \\ \hline
+\end{tabular}
+\caption{Các thành phần tham gia luồng Tra cứu lịch sử giao dịch}
+\end{table}
+
+\subparagraph{Mô tả chi tiết}
+\begin{itemize}
+\item \textbf{Yêu cầu tra cứu:} User click vào trang Lịch sử giao dịch trên giao diện cá nhân. Web Frontend gửi yêu cầu \texttt{GET /code-payment-service/subscriptions/history?skip=0\&limit=20} mang theo Bearer Token lên hệ thống qua Kong API Gateway.
+\item \textbf{Xử lý truy vấn:} Kong Gateway định tuyến yêu cầu đến Payment Service. Tại đây, dịch vụ thực hiện truy vấn cơ sở dữ liệu hai tác vụ:
+    \begin{itemize}
+    \item Lấy danh sách giao dịch của user phân trang theo tham số \texttt{skip} và \texttt{limit}.
+    \item Đếm tổng số giao dịch (\texttt{total}) của user đó phục vụ việc phân trang phía giao diện.
+    \end{itemize}
+\item \textbf{Phản hồi dữ liệu:} Payment Service thực hiện ánh xạ (map) các thực thể Transaction thành định dạng DTO (bao gồm mã giao dịch, số tiền, trạng thái thanh toán, phương thức, ngày thanh toán) và phản hồi về cho Web Frontend.
+\item \textbf{Hiển thị thông tin:} Web Frontend nhận dữ liệu và vẽ bảng lịch sử giao dịch trực quan để User dễ dàng theo dõi.
+\end{itemize}

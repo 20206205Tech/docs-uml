@@ -6,7 +6,6 @@ Luồng nghiệp vụ này mô tả quy trình người dùng gửi yêu cầu k
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-12.png}
 \caption{Sơ đồ tuần tự Yêu cầu Khôi phục Mật khẩu}
-\label{fig:seq_forgot_password}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -29,6 +28,6 @@ Email Service & External Service & Gửi email chứa mã liên kết tới hòm
 
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
-\item Người dùng điền Email và nhấn khôi phục. Frontend gửi yêu cầu `POST /recover` qua Kong đến Auth Service.
+\item Người dùng điền Email và nhấn khôi phục. Frontend gửi yêu cầu \texttt{POST /recover} qua Kong đến Auth Service.
 \item Auth Service tạo token khôi phục, ghi nhận hạn dùng trong Database và thực hiện gọi dịch vụ gửi Email chứa link xác thực tới người dùng.
 \end{itemize}

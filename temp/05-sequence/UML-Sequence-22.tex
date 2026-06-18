@@ -6,7 +6,6 @@ Luồng nghiệp vụ này mô tả quy trình Quản trị viên (Admin) thực
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-22.png}
 \caption{Sơ đồ tuần tự Luồng Quản lý nhân vật trợ lý ảo}
-\label{fig:seq_manage_persona}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -31,6 +30,6 @@ Persona Database & Database & Cơ sở dữ liệu lưu trữ thông tin cấu h
 \begin{itemize}
 \item \textbf{Tải lên Avatar (Tùy chọn):} Admin chọn ảnh đại diện. Frontend gửi file qua Kong tới Persona Service. Dịch vụ lưu file vào Cloud Storage và trả về đường dẫn \texttt{avatarUrl} cho Frontend.
 \item \textbf{Tải lên Âm thanh (Tùy chọn):} Admin chọn file âm thanh giới thiệu. Frontend gửi yêu cầu tải lên qua Kong, Persona Service lưu file vào Cloud Storage và phản hồi lại \texttt{audioUrl}.
-\item \textbf{Lưu thông tin nhân vật:} Admin điền đầy đủ các thông tin cấu hình như tên, mô tả, defaultPrompt và liên kết giọng nói (\texttt{voiceUuid}). Frontend gửi yêu cầu \texttt{POST /personas} hoặc \texttt{PUT /personas/:id}.
+\item \textbf{Lưu thông tin nhân vật:} Admin điền đầy đủ các thông tin cấu hình như tên, mô tả, defaultPrompt và liên kết giọng nói (\texttt{voiceUuid}). Frontend gửi yêu cầu \texttt{POST /code-persona-service/personas} hoặc \texttt{PUT /code-persona-service/personas/\{persona\_id\}}.
 \item \textbf{Xử lý và Lưu trữ:} Persona Service kiểm tra sự tồn tại của \texttt{voiceUuid} trong cơ sở dữ liệu để đảm bảo liên kết hợp lệ, sau đó tiến hành ghi dữ liệu nhân vật vào Persona Database và phản hồi kết quả thành công về cho người dùng.
 \end{itemize}

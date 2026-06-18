@@ -1,0 +1,32 @@
+\paragraph{Sơ đồ tuần tự Pha gửi email xác nhận thanh toán VIP}
+
+Pha này mô tả local event handler trong Payment Service lấy hồ sơ người dùng từ Supabase Auth và gọi Email Service để gửi email thông báo thanh toán thành công.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.18]{pictures/UML-Sequence-33.png}
+\caption{Sơ đồ tuần tự Pha gửi email xác nhận thanh toán VIP}
+\end{figure}
+
+\subparagraph{Các thành phần tham gia}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|p{5cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
+Payment Service & Microservice & Xử lý local event và điều phối gửi thông báo. \\ \hline
+Supabase (Auth) & External Service & Cung cấp thông tin hồ sơ người dùng gồm tên và email. \\ \hline
+Email Service & External Service & Gửi email xác nhận thanh toán thành công. \\ \hline
+User & Actor & Nhận email xác nhận giao dịch VIP. \\ \hline
+\end{tabular}
+\caption{Các thành phần tham gia pha gửi email xác nhận thanh toán VIP}
+\end{table}
+
+\subparagraph{Mô tả chi tiết}
+\begin{itemize}
+\item \textbf{Xử lý local event:} Payment Service nhận biết giao dịch VIP đã hoàn tất.
+\item \textbf{Lấy hồ sơ:} Service gọi Supabase để lấy \texttt{fullName} và \texttt{email} của User.
+\item \textbf{Gửi thông báo:} Email Service gửi email xác nhận thanh toán thành công kèm thông tin gói và kỳ hạn sử dụng.
+\end{itemize}
