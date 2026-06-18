@@ -1,4 +1,4 @@
-﻿@startuml
+@startuml
 actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
@@ -26,7 +26,7 @@ activate DB
 DB --> PaymentService: Trả về Subscription hiện tại nếu có
 deactivate DB
 
-PaymentService -> DB: UPSERT Subscription\n(status='PENDING')
+PaymentService -> DB: Tạo Subscription mới nếu chưa có\n(status='PENDING')
 activate DB
 DB --> PaymentService: OK
 deactivate DB
@@ -36,7 +36,7 @@ activate DB
 DB --> PaymentService: OK
 deactivate DB
 
-PaymentService -> Redis: Đăng ký job timeout\n(delay = 15 phút)
+PaymentService -> Redis: Đăng ký job timeout\n(delay = 10 phút)
 activate Redis
 Redis --> PaymentService: OK
 deactivate Redis
@@ -52,4 +52,27 @@ Kong --> Frontend: Trả về payment_url
 deactivate Kong
 Frontend --> User: Chuyển hướng đến Payment Gateway URL
 deactivate Frontend
+
+opt Sau 10 phút nếu transaction vẫn PENDING
+Redis -> PaymentService: Nhận job payment-timeout\n{ transactionId }
+activate PaymentService
+PaymentService -> DB: Query Transaction bằng transactionId
+activate DB
+DB --> PaymentService: Trả về Transaction
+deactivate DB
+
+alt Transaction vẫn PENDING
+PaymentService -> DB: UPDATE Transaction\n(status='EXPIRED')
+activate DB
+DB --> PaymentService: OK
+deactivate DB
+PaymentService -> DB: UPDATE Subscription\n(status='EXPIRED')
+activate DB
+DB --> PaymentService: OK
+deactivate DB
+else Transaction đã SUCCESS/FAILED/EXPIRED
+PaymentService -> PaymentService: Bỏ qua xử lý timeout
+end
+deactivate PaymentService
+end
 @enduml

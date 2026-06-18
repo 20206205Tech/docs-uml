@@ -1,4 +1,4 @@
-﻿@startuml
+@startuml
 actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong

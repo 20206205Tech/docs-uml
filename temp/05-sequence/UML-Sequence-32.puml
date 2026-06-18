@@ -1,4 +1,4 @@
-﻿@startuml
+@startuml
 participant "Payment Service" as PaymentService
 participant "Payment DB" as DB
 participant "Kafka (Event Bus)" as Kafka
