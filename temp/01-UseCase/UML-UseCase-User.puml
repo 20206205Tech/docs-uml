@@ -5,22 +5,26 @@ skinparam shadowing false
 
 actor "Guest" as Guest
 actor "User" as User
+together {
 actor "Supabase" as Supabase << System >>
-actor "Neon API" as NeonAPI << System >>
 actor "Payment Gateway" as PaymentGateway << System >>
-
+actor "Neon API" as NeonAPI << System >>
+}
 User -|> Guest
 
 rectangle "Chức năng dành cho User" {
-  usecase "Quản lý bảo mật 2 lớp\n(2FA/TOTP)" as UC_MFA
+  usecase "Quản lý bảo mật 2FA" as UC_MFA
   usecase "Quản lý hồ sơ cá nhân" as UC_Profile
   usecase "Đổi / Quên mật khẩu" as UC_Password
-  usecase "Cấu hình cài đặt" as UC_Settings
+
   usecase "Hỏi đáp pháp lý" as UC_Chat
   usecase "Đánh dấu trò chuyện" as UC_Bookmark
   usecase "Chia sẻ trò chuyện" as UC_Share
+
   usecase "Mua gói cước VIP" as UC_PurchaseVIP
   usecase "Tra cứu lịch sử giao dịch" as UC_TransactionHistory
+
+  usecase "Cấu hình cài đặt" as UC_Settings
 }
 
 User -- UC_MFA #blue
@@ -30,12 +34,12 @@ User -- UC_Settings #blue
 User -- UC_Chat #blue
 User -- UC_Bookmark #blue
 User -- UC_Share #blue
-User -- UC_PurchaseVIP #blue
-User -- UC_TransactionHistory #blue
 
 UC_MFA --- Supabase #green
 UC_Profile --- Supabase #green
 UC_Password --- Supabase #green
-UC_Settings --- NeonAPI #green
+User -- UC_PurchaseVIP #blue
 UC_PurchaseVIP --- PaymentGateway #green
+User -- UC_TransactionHistory #blue
+UC_Settings --- NeonAPI #green
 @enduml
