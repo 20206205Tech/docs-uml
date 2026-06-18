@@ -3,12 +3,12 @@ from pathlib import Path
 
 # 1. Nhận danh sách các file gốc
 danh_sach_file_goc = [
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.png",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.puml",
-    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence.tex",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.png",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.puml",
-    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.tex",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.png",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.puml",
+    # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-.tex",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-29.png",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-29.puml",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-29.tex",
 ]
 
 # 2. Danh sách các đuôi file cần thêm vào
@@ -16,13 +16,18 @@ cac_duoi_can_them = [
     # "-sample",
     # "sample",
     # "overview",
+    "-1",
+    "-2",
+    "-3",
+    "-4",
+    "-5",
     # ".1",
     # ".2",
     # ".3",
     # "3",
     # "xxxxxxxxxxx",
-    "29",
-    "30",
+    # "29",
+    # "30",
     # "31",
     # "32",
     # "33",
