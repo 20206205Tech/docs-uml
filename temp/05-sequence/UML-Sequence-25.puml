@@ -5,12 +5,12 @@ participant "API Gateway\n(Kong)" as Kong
 participant "Payment Service" as PaymentService
 participant "Payment DB" as DB
 
-== Luồng 2: Lưu trữ gói cước VIP (Archive Plan) ==
-Admin -> Frontend: Chọn gói cước, bấm "Lưu trữ" (Archive/Deactivate)
+== Luồng 2: Lưu trữ gói thuê bao VIP (Archive Plan) ==
+Admin -> Frontend: Chọn gói thuê bao VIP, bấm "Lưu trữ" (Archive/Deactivate)
 activate Frontend
 Frontend -> Kong: DELETE /code-payment-service/plans/{plan_id}\n[Headers: Authorization: Bearer <token>]
 activate Kong
-Kong -> PaymentService: Chuyển tiếp yêu cầu xóa gói cước
+Kong -> PaymentService: Chuyển tiếp yêu cầu xóa gói thuê bao VIP
 activate PaymentService
 
 PaymentService -> DB: UPDATE Plan SET isActive=false WHERE id=planId
@@ -22,6 +22,6 @@ PaymentService --> Kong: Trả về kết quả thành công (HTTP 200 OK)
 deactivate PaymentService
 Kong --> Frontend: Trả về kết quả thành công
 deactivate Kong
-Frontend --> Admin: Hiển thị thông báo "Đã lưu trữ gói cước thành công"
+Frontend --> Admin: Hiển thị thông báo "Đã lưu trữ gói thuê bao VIP thành công"
 deactivate Frontend
 @enduml

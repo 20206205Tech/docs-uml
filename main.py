@@ -9,12 +9,18 @@ danh_sach_file_goc = [
     # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-29.png",
     # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-29.puml",
     # r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\05-sequence\UML-Sequence-29.tex",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\01-UseCase\UML-UseCase-.puml",
+    r"C:\Users\Admin\Documents\GitHub\docs-uml\temp\01-UseCase\UML-UseCase-.png",
 ]
 
 # 2. Danh sách các đuôi file cần thêm vào
 cac_duoi_can_them = [
     # "-sample",
     # "sample",
+    "Guest",
+    "User",
+    "Admin",
+    "VIP",
     # "overview",
     # "-1",
     # "-2",

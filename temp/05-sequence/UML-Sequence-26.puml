@@ -5,7 +5,7 @@ participant "API Gateway\n(Kong)" as Kong
 participant "Pháp Điển Pipeline\nService" as PhapDienService
 participant "Pipeline DB" as DB
 
-== Luồng 1: Theo dõi báo cáo Pháp Điển Pipeline (Pháp Điển Report) ==
+== Luồng 1: Theo dõi báo cáo Pháp Điển Pipeline (Pháp Điển) ==
 Admin -> Frontend: Truy cập trang Bảng điều khiển (Admin Dashboard)
 activate Frontend
 

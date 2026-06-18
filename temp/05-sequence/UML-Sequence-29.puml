@@ -7,18 +7,18 @@ participant "Payment DB" as DB
 participant "Redis (BullMQ)" as Redis
 participant "Payment Gateway\n(VNPay/MoMo)" as Gateway
 
-== Pha 1: Khởi tạo giao dịch mua gói VIP ==
+== Pha 1: Khởi tạo giao dịch mua gói thuê bao VIP ==
 
-User -> Frontend: Chọn mua gói VIP\n(Click "Nâng cấp VIP")
+User -> Frontend: Chọn mua gói thuê bao VIP\n(Click "Nâng cấp VIP")
 activate Frontend
 Frontend -> Kong: POST /code-payment-service/subscriptions/purchase\n[Authorization: Bearer <token>]\n{ plan_id, redirect_url }
 activate Kong
-Kong -> PaymentService: Chuyển tiếp yêu cầu mua gói
+Kong -> PaymentService: Chuyển tiếp yêu cầu mua gói thuê bao VIP
 activate PaymentService
 
 PaymentService -> DB: Query Plan bằng plan_id
 activate DB
-DB --> PaymentService: Trả về thông tin gói cước
+DB --> PaymentService: Trả về thông tin gói thuê bao VIP
 deactivate DB
 
 PaymentService -> DB: Query Subscription bằng userId
