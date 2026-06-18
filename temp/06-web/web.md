@@ -62,12 +62,12 @@
 
 <!--  -->
 
-![alt text](pay-plan-list.png)
+![alt text](images/pay-plan-list.png)
 
-![alt text](pay-his.png)
+![alt text](images/pay-his.png)
 
+![alt text](images/pay-suc.png)
 
-![alt text](pay-suc.png)
+![alt text](images/pay-mail.png)
 
-
-![alt text](pay-plan-with-ok.png)
+![alt text](images/pay-plan-with-ok.png)
