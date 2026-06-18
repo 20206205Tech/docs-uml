@@ -19,7 +19,7 @@ activate ConversationService
 
 ConversationService -> ConversationDB: Kiểm tra UserSubscription.isVip(userId)
 activate ConversationDB
-ConversationDB --> ConversationService: Gói VIP còn hiệu lực
+ConversationDB --> ConversationService: Gói thuê bao VIP còn hiệu lực
 deactivate ConversationDB
 
 ConversationService -> ConversationDB: Kiểm tra chat_id thuộc user
@@ -49,10 +49,10 @@ deactivate ConversationService
 deactivate Kong
 deactivate Frontend
 
-alt User chưa có gói VIP
+alt User chưa có gói thuê bao VIP
     ConversationService --> Kong: HTTP 403 Forbidden
     Kong --> Frontend: Từ chối dùng reasoning nâng cao
-    Frontend --> User: Yêu cầu nâng cấp gói
+    Frontend --> User: Yêu cầu nâng cấp gói thuê bao VIP
 end
 
 @enduml

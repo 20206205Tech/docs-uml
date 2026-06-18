@@ -28,7 +28,7 @@ LiveKit Cloud & External Service & Hạ tầng WebRTC/WebSocket cho phiên đàm
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
 \item Web Frontend gọi \texttt{GET /code-conversation-service/chats/\{chat\_id\}/voice-token} kèm \texttt{persona\_id}, \texttt{file\_ids[]} và \texttt{use\_reasoning}.
-\item Conversation Service chỉ cấp token khi user có gói VIP hợp lệ trong môi trường production.
+\item Conversation Service chỉ cấp token khi user có gói thuê bao VIP hợp lệ trong môi trường production.
 \item Access Token chứa metadata \texttt{chat\_id}, \texttt{user\_id}, \texttt{file\_ids}, \texttt{use\_reasoning} và \texttt{persona\_id}.
 \item Client dùng token và \texttt{LIVEKIT\_URL} để join room tương ứng với \texttt{chat\_id}.
 \end{itemize}

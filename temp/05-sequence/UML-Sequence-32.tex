@@ -18,7 +18,7 @@ Pha này mô tả Outbox Relay Cron của Payment Service quét sự kiện đan
 \textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
 Payment Service & Microservice & Chạy Outbox Relay Cron, publish event và đánh dấu sự kiện đã xử lý. \\ \hline
 Payment DB & Database & Lưu bảng Outbox và trạng thái xử lý sự kiện. \\ \hline
-Kafka & Message Broker & Event bus truyền tải sự kiện mua gói VIP. \\ \hline
+Kafka & Message Broker & Event bus truyền tải sự kiện mua gói thuê bao VIP. \\ \hline
 Consumer Service & Microservice & Tiêu thụ sự kiện từ Kafka để đồng bộ dữ liệu hoặc kích hoạt xử lý nghiệp vụ trong local DB của service đó. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia pha Transactional Outbox đồng bộ trạng thái VIP}

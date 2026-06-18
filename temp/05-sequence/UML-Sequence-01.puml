@@ -10,13 +10,13 @@ Guest -> Frontend: Truy cập Trang chủ
 activate Frontend
 
 par #LightCyan Lấy dữ liệu song song
-    Frontend -> Gateway: Lấy thông tin gói cước
+    Frontend -> Gateway: Lấy thông tin gói thuê bao VIP
     activate Gateway
-    Gateway -> PaymentService: Lấy danh sách gói cước
+    Gateway -> PaymentService: Lấy danh sách gói thuê bao VIP
     activate PaymentService
-    PaymentService --> Gateway: Danh sách gói cước
+    PaymentService --> Gateway: Danh sách gói thuê bao VIP
     deactivate PaymentService
-    Gateway --> Frontend: Trả về thông tin gói cước
+    Gateway --> Frontend: Trả về thông tin gói thuê bao VIP
     deactivate Gateway
 else #LightYellow
     Frontend -> Gateway: Lấy danh sách nhân vật

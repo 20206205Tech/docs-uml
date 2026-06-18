@@ -21,7 +21,7 @@ rectangle "Chức năng dành cho User" {
   usecase "Đánh dấu trò chuyện" as UC_Bookmark #ec4899
   usecase "Chia sẻ trò chuyện" as UC_Share #ec4899
 
-  usecase "Mua gói cước VIP" as UC_PurchaseVIP #f59e0b
+  usecase "Mua gói thuê bao VIP" as UC_PurchaseVIP #f59e0b
   usecase "Tra cứu lịch sử giao dịch" as UC_TransactionHistory #f59e0b
 
   usecase "Cấu hình cài đặt" as UC_Settings #3b82f6

@@ -28,10 +28,10 @@ wbsDiagram {
 *** Dịch vụ Cài đặt (Settings Service)
 **** Quản lý cài đặt cá nhân
 *** Dịch vụ Thanh toán (Payment Service)
-**** Hiển thị bảng giá gói dịch vụ VIP
-**** Mua gói cước VIP
+**** Hiển thị bảng giá gói thuê bao VIP
+**** Mua gói thuê bao VIP
 **** Tra cứu lịch sử giao dịch
-**** Quản trị các gói dịch vụ (ADMIN)
+**** Quản trị các gói thuê bao VIP (ADMIN)
 **** Tích hợp cổng thanh toán
 
 ** Phân hệ Cốt lõi (Core Subdomain)
