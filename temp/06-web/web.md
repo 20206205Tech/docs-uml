@@ -59,3 +59,15 @@
 ![alt text](images/admin-data-pipeline-vbpl.png)
 
 ![alt text](images/admin-data-pipeline-PhapDien.png)
+
+<!--  -->
+
+![alt text](plan-list.png)
+
+![alt text](pay-his.png)
+
+
+![alt text](pay-suc.png)
+
+
+![alt text](pay-his.png)
