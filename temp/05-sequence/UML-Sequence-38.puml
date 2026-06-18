@@ -7,9 +7,9 @@ database "Document DB" as DocumentDB
 participant "Cloudflare R2" as R2
 queue "RabbitMQ\n(Celery Broker)" as RabbitMQ
 
-== Luồng nghiệp vụ: Tải lên tài liệu/hợp đồng cá nhân ==
+== Luồng nghiệp vụ: Tải lên tài liệu cá nhân ==
 
-User -> Frontend: Chọn file tài liệu hoặc hợp đồng
+User -> Frontend: Chọn file tài liệu
 activate Frontend
 
 Frontend -> Kong: POST /code-document-service/documents/upload\nmultipart/form-data: file

@@ -1,11 +1,11 @@
-\paragraph{Sơ đồ tuần tự Luồng Tải lên tài liệu/hợp đồng cá nhân}
+\paragraph{Sơ đồ tuần tự Luồng Tải lên tài liệu cá nhân}
 
-Luồng này mô tả quá trình người dùng premium tải lên tài liệu hoặc hợp đồng cá nhân. Document Service kiểm tra subscription, lưu file gốc vào Cloudflare R2, tạo bản ghi Document và đẩy tác vụ xử lý nền qua RabbitMQ.
+Luồng này mô tả quá trình người dùng premium tải lên tài liệu  cá nhân. Document Service kiểm tra subscription, lưu file gốc vào Cloudflare R2, tạo bản ghi Document và đẩy tác vụ xử lý nền qua RabbitMQ.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-38.png}
-\caption{Sơ đồ tuần tự Luồng Tải lên tài liệu/hợp đồng cá nhân}
+\caption{Sơ đồ tuần tự Luồng Tải lên tài liệu cá nhân}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -16,13 +16,13 @@ Luồng này mô tả quá trình người dùng premium tải lên tài liệu 
 \begin{tabular}{|l|l|p{5cm}|}
 \hline
 \textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
-User & Actor & Người dùng tải lên tài liệu hoặc hợp đồng cá nhân. \\ \hline
+User & Actor & Người dùng tải lên tài liệu  cá nhân. \\ \hline
 Document Service & Microservice & Kiểm tra quyền, validate file, lưu metadata và publish task xử lý nền. \\ \hline
 Document Database & Database & Lưu Document và trạng thái subscription cục bộ. \\ \hline
 Cloudflare R2 & Object Storage & Lưu file gốc của người dùng. \\ \hline
 RabbitMQ & Message Broker & Nhận task \texttt{process\_document\_task} cho Document Worker. \\ \hline
 \end{tabular}
-\caption{Các thành phần tham gia luồng tải lên tài liệu/hợp đồng cá nhân}
+\caption{Các thành phần tham gia luồng tải lên tài liệu cá nhân}
 \end{table}
 
 \subparagraph{Mô tả chi tiết}

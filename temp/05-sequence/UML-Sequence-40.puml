@@ -22,7 +22,7 @@ ChatbotService -> RAG: generation_stream(query, file_ids, use_reasoning=true)
 activate RAG
 RAG -> Milvus: Truy vấn vector tài liệu cá nhân theo user_id và file_ids
 activate Milvus
-Milvus --> RAG: Đoạn nội dung hợp đồng/tài liệu liên quan
+Milvus --> RAG: Đoạn nội dung tài liệu liên quan
 deactivate Milvus
 
 RAG -> LegalKB: Truy vấn văn bản pháp luật liên quan
@@ -43,7 +43,7 @@ ChatbotService --> ConversationService: Stream kết quả phân tích
 deactivate ChatbotService
 ConversationService --> Frontend: Stream nội dung, bước reasoning và nguồn
 deactivate ConversationService
-Frontend --> User: Hiển thị phân tích hợp đồng/tài liệu cá nhân
+Frontend --> User: Hiển thị phân tích tài liệu cá nhân
 deactivate Frontend
 
 @enduml
