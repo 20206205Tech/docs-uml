@@ -1,4 +1,4 @@
-\paragraph{Sơ đồ tuần tự Cập nhật thông tin Cài đặt (Update Settings)}
+﻿\paragraph{Sơ đồ tuần tự Cập nhật thông tin Cài đặt (Update Settings)}
 
 Luồng nghiệp vụ này mô tả quy trình lưu các thay đổi thiết lập của người dùng về cơ sở dữ liệu Neon thông qua Settings Service.
 
@@ -28,7 +28,7 @@ Neon Database & Database & Lưu trữ cấu hình cài đặt của User dưới
 
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
-\item Người dùng bật/tắt các tuỳ chọn trên giao diện và nhấn lưu. Frontend thực hiện gửi yêu cầu `POST /neon-setting-service` chứa danh sách các cài đặt được thay đổi qua Gateway đến Settings Service.
+\item Người dùng bật/tắt các tuỳ chọn trên giao diện và nhấn lưu. Frontend thực hiện gửi yêu cầu \texttt{POST /neon-setting-service} chứa danh sách các cài đặt được thay đổi qua Gateway đến Settings Service.
 \item Settings Service thực hiện cập nhật hoặc thêm mới (Upsert) cấu hình của người dùng trong Neon Database.
 \item Sau khi lưu thành công, Frontend áp dụng cấu hình cục bộ (ví dụ chuyển theme màu tối) và hiển thị thông báo lưu thành công.
 \end{itemize}

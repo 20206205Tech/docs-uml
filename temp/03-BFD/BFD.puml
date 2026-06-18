@@ -16,15 +16,7 @@ wbsDiagram {
 }
 </style>
 
-
-
-
-
-
 * Hệ thống tư vấn pháp luật AI
-
-
-
 
 ** Phân hệ Chung (Generic Subdomain)
 *** Dịch vụ Xác thực (Auth Service)
@@ -37,10 +29,9 @@ wbsDiagram {
 **** Quản lý cài đặt cá nhân
 *** Dịch vụ Thanh toán (Payment Service)
 **** Hiển thị bảng giá gói dịch vụ VIP
+**** Mua gói cước VIP
+**** Tra cứu lịch sử giao dịch
 **** Quản trị các gói dịch vụ (Dành cho ADMIN)
-
-
-
 
 ** Phân hệ Cốt lõi (Core Subdomain)
 *** Dịch vụ Trò chuyện (Conversation Service)
@@ -61,5 +52,4 @@ wbsDiagram {
 *** Quản trị Bảng điều khiển (Admin Dashboard)
 **** Báo cáo thống kê Pipeline văn bản pháp luật (Nguồn vbpl.vn)
 **** Báo cáo thống kê Pipeline Pháp Điển
-
 @endwbs

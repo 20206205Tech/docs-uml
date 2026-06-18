@@ -1,4 +1,4 @@
-@startuml
+﻿@startuml
 actor "Admin" as Admin
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
@@ -8,12 +8,12 @@ participant "Payment DB" as DB
 == Luồng 1: Tạo mới gói cước VIP (Create Plan) ==
 Admin -> Frontend: Nhập thông tin gói cước (name, durationMonths, price, features)
 activate Frontend
-Frontend -> Kong: POST /payment-service/v1/plans\n[Headers: Authorization: Bearer <token>]\n{ name, durationMonths, price, features }
+Frontend -> Kong: POST /code-payment-service/plans\n[Headers: Authorization: Bearer <token>]\n{ name, durationMonths, price, features, isActive }
 activate Kong
 Kong -> PaymentService: Chuyển tiếp yêu cầu tạo gói cước
 activate PaymentService
 
-PaymentService -> DB: INSERT Plan record (status='ACTIVE')
+PaymentService -> DB: INSERT Plan record (isActive=true)
 activate DB
 DB --> PaymentService: OK (Bản ghi được lưu)
 deactivate DB

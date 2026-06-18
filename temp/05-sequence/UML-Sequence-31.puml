@@ -1,0 +1,38 @@
+@startuml
+participant "Payment Gateway\n(VNPay/MoMo)" as Gateway
+participant "Payment Service" as PaymentService
+participant "Payment DB" as DB
+
+== Pha 3: Xác thực IPN và cập nhật giao dịch ==
+
+Gateway -> PaymentService: Callback/IPN\n{ txnRef, secureHash, amount, responseCode }
+activate PaymentService
+
+PaymentService -> Gateway: verifyIpn\n(Kiểm tra chữ ký và tính hợp lệ)
+activate Gateway
+Gateway --> PaymentService: isValid = true
+deactivate Gateway
+
+PaymentService -> DB: Query Transaction bằng txnRef\n(Lock để cập nhật)
+activate DB
+DB --> PaymentService: Trả về Transaction
+deactivate DB
+
+PaymentService -> DB: UPDATE Transaction\n(status='SUCCESS', paidAt)
+activate DB
+DB --> PaymentService: OK
+deactivate DB
+
+PaymentService -> DB: UPDATE Subscription\n(status='ACTIVE', periodStart, periodEnd)
+activate DB
+DB --> PaymentService: OK
+deactivate DB
+
+PaymentService -> DB: INSERT Outbox Event\n"SubscriptionPurchasedEvent"
+activate DB
+DB --> PaymentService: OK
+deactivate DB
+
+PaymentService --> Gateway: HTTP 200 OK\nXác nhận IPN thành công
+deactivate PaymentService
+@enduml

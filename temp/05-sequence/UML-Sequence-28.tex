@@ -1,12 +1,12 @@
-\paragraph{Sơ đồ tuần tự Luồng Quản lý TTS Engine ElevenLabs}
+\paragraph{Sơ đồ tuần tự Luồng Quản lý Engine giọng nói}
 
-Luồng nghiệp vụ này mô tả quy trình Quản trị viên (Admin) thiết lập hoặc cập nhật TTS Engine dùng nhà cung cấp ElevenLabs, bao gồm kiểm tra khóa kết nối, chọn model mặc định và lưu cấu hình để các giọng nói (Voices) có thể sử dụng thống nhất trong hệ thống.
+Luồng nghiệp vụ này mô tả quy trình Quản trị viên (Admin) tạo mới hoặc cập nhật Engine giọng nói trong Persona Service. Theo code hiện tại, Engine là cấu hình nội bộ gồm \texttt{code}, \texttt{name} và \texttt{is\_active}; bước đồng bộ dữ liệu ElevenLabs được mô tả riêng ở luồng đồng bộ Voices.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-28.png}
-\caption{Sơ đồ tuần tự Luồng Quản lý TTS Engine ElevenLabs}
-\label{fig:seq_manage_tts_engine}
+\caption{Sơ đồ tuần tự Luồng Quản lý Engine giọng nói}
+\label{fig:seq_manage_voice_engine}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -17,21 +17,19 @@ Luồng nghiệp vụ này mô tả quy trình Quản trị viên (Admin) thiế
 \begin{tabular}{|l|l|p{5cm}|}
 \hline
 \textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
-Admin & Actor & Quản trị viên cấu hình nhà cung cấp TTS, model mặc định và trạng thái hoạt động. \\ \hline
-Web Frontend & Component & Giao diện quản trị cho phép nhập cấu hình TTS Engine và kiểm tra kết nối. \\ \hline
-API Gateway (Kong) & Component & Định tuyến yêu cầu cấu hình tới Persona Service và kiểm tra quyền Admin. \\ \hline
-Persona Service & Microservice & Xử lý nghiệp vụ cấu hình TTS Engine, kiểm tra kết nối ElevenLabs và lưu trạng thái. \\ \hline
-ElevenLabs API & External Service & Nhà cung cấp TTS bên thứ ba dùng để xác thực API Key và lấy danh sách model khả dụng. \\ \hline
-Persona Database & Database & Lưu trữ cấu hình TTS Engine, model mặc định, trạng thái kích hoạt và thời điểm kiểm tra gần nhất. \\ \hline
+Admin & Actor & Quản trị viên cấu hình mã Engine, tên hiển thị và trạng thái hoạt động. \\ \hline
+Web Frontend & Component & Giao diện quản trị cho phép nhập và cập nhật cấu hình Engine. \\ \hline
+API Gateway (Kong) & Component & Định tuyến yêu cầu tới Persona Service và kiểm tra quyền Admin. \\ \hline
+Persona Service & Microservice & Xử lý nghiệp vụ tạo/cập nhật Engine. \\ \hline
+Persona Database & Database & Lưu trữ thông tin Engine gồm \texttt{code}, \texttt{name} và \texttt{is\_active}. \\ \hline
 \end{tabular}
-\caption{Các thành phần tham gia luồng Quản lý TTS Engine ElevenLabs}
+\caption{Các thành phần tham gia luồng Quản lý Engine giọng nói}
 \end{table}
 
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
-\item \textbf{Nhập cấu hình:} Admin mở trang TTS Engine trong Admin Panel và điền các thông tin như mã engine, nhà cung cấp, tham chiếu khóa API, model mặc định, giọng nói mặc định và trạng thái hoạt động.
-\item \textbf{Gửi yêu cầu lưu:} Web Frontend gửi yêu cầu \texttt{POST /persona-service/v1/tts-engines} hoặc yêu cầu cập nhật tương ứng qua Kong API Gateway kèm Bearer Token.
-\item \textbf{Kiểm tra kết nối ElevenLabs:} Persona Service dùng khóa cấu hình để gọi \texttt{GET /v1/models} tới ElevenLabs API nhằm xác nhận cấu hình hợp lệ và lấy danh sách model khả dụng.
-\item \textbf{Lưu cấu hình:} Persona Service thực hiện \texttt{UPSERT} bản ghi TTS Engine trong Persona Database, lưu trạng thái kiểm tra kết nối và thời điểm kiểm tra gần nhất.
-\item \textbf{Hoàn tất:} Hệ thống phản hồi cấu hình đã lưu về Frontend để Admin nhìn thấy trạng thái kết nối ElevenLabs hợp lệ.
+\item \textbf{Nhập cấu hình:} Admin mở trang Engine trong Admin Panel và nhập mã Engine, tên hiển thị cùng trạng thái hoạt động.
+\item \textbf{Gửi yêu cầu lưu:} Web Frontend gửi yêu cầu \texttt{POST /code-persona-service/engines} hoặc yêu cầu cập nhật \texttt{PUT /code-persona-service/engines/\{engine\_id\}} qua Kong API Gateway kèm Bearer Token.
+\item \textbf{Lưu cấu hình:} Persona Service thực hiện tạo mới hoặc cập nhật bản ghi Engine trong Persona Database.
+\item \textbf{Hoàn tất:} Hệ thống phản hồi cấu hình đã lưu về Frontend để Admin nhìn thấy trạng thái cập nhật thành công.
 \end{itemize}

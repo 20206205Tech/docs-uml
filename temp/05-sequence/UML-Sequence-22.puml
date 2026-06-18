@@ -1,4 +1,4 @@
-@startuml
+﻿@startuml
 actor "Admin" as Admin
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
@@ -9,7 +9,7 @@ participant "Persona DB" as DB
 == Luồng Quản lý nhân vật ảo (Tạo mới / Cập nhật Persona) ==
 opt Tải lên Avatar nhân vật
     Admin -> Frontend: Chọn ảnh đại diện nhân vật
-    Frontend -> Kong: POST /persona-service/v1/personas/upload-avatar\n[Headers: Authorization: Bearer <token>] (Multipart File)
+    Frontend -> Kong: POST /code-persona-service/personas/upload-avatar\n[Headers: Authorization: Bearer <token>] (Multipart File)
     activate Kong
     Kong -> PersonaService: Chuyển tiếp file tải lên
     activate PersonaService
@@ -25,7 +25,7 @@ end
 
 opt Tải lên âm thanh giới thiệu
     Admin -> Frontend: Chọn file âm thanh giới thiệu (MP3/WAV)
-    Frontend -> Kong: POST /persona-service/v1/personas/upload-audio\n[Headers: Authorization: Bearer <token>] (Multipart File)
+    Frontend -> Kong: POST /code-persona-service/personas/upload-audio\n[Headers: Authorization: Bearer <token>] (Multipart File)
     activate Kong
     Kong -> PersonaService: Chuyển tiếp file tải lên
     activate PersonaService
@@ -40,7 +40,7 @@ opt Tải lên âm thanh giới thiệu
 end
 
 Admin -> Frontend: Điền thông tin nhân vật (name, description, defaultPrompt, voiceUuid)
-Frontend -> Kong: POST /persona-service/v1/personas\n(Hoặc PUT /personas/:id)\n{ name, description, avatarUrl, audioUrl, defaultPrompt, voiceUuid }
+Frontend -> Kong: POST /code-persona-service/personas\n(Hoặc PUT /code-persona-service/personas/{persona_id})\n{ name, description, avatarUrl, audioUrl, defaultPrompt, voiceUuid }
 activate Kong
 Kong -> PersonaService: Chuyển tiếp yêu cầu lưu nhân vật
 activate PersonaService

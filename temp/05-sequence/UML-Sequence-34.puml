@@ -1,0 +1,38 @@
+﻿@startuml
+actor "User" as User
+participant "Web Frontend" as Frontend
+participant "API Gateway\n(Kong)" as Kong
+participant "Payment Service" as PaymentService
+participant "Payment DB" as DB
+
+== Luồng nghiệp vụ: Tra cứu lịch sử giao dịch (Get Transaction History) ==
+
+User -> Frontend: Click xem "Lịch sử giao dịch"
+activate Frontend
+
+Frontend -> Kong: GET /code-payment-service/subscriptions/history?skip=0&limit=20\n[Headers: Authorization: Bearer <token>]
+activate Kong
+Kong -> PaymentService: Chuyển tiếp yêu cầu lấy lịch sử giao dịch
+activate PaymentService
+
+PaymentService -> DB: Query tất cả Transactions bằng userId (skip, limit)
+activate DB
+DB --> PaymentService: Trả về danh sách Transactions
+deactivate DB
+
+PaymentService -> DB: Count tổng số Transactions bằng userId
+activate DB
+DB --> PaymentService: Trả về total_count
+deactivate DB
+
+PaymentService -> PaymentService: Ánh xạ danh sách giao dịch sang TransactionHistoryItem DTO
+PaymentService --> Kong: Trả về JSON chứa { items, total } (HTTP 200 OK)
+deactivate PaymentService
+Kong --> Frontend: Trả về dữ liệu lịch sử giao dịch
+deactivate Kong
+
+Frontend -> Frontend: Render bảng lịch sử giao dịch (ngày, mã giao dịch, số tiền, trạng thái, phương thức)
+Frontend --> User: Hiển thị giao diện lịch sử giao dịch
+deactivate Frontend
+
+@enduml

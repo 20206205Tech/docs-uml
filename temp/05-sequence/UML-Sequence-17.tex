@@ -1,4 +1,4 @@
-\paragraph{Sơ đồ tuần tự Luồng Nhắn tin văn bản}
+﻿\paragraph{Sơ đồ tuần tự Luồng Nhắn tin văn bản}
 
 Luồng nghiệp vụ này mô tả vòng đời của yêu cầu nhắn tin từ người dùng, qua các bước kiểm tra người dùng, giao tiếp với dịch vụ AI bằng gRPC và trả về kết quả theo thời gian thực thông qua luồng dữ liệu Server-Sent Events (SSE).
 
@@ -32,7 +32,7 @@ LLM + VectorDB & AI Engine & Xử lý ngôn ngữ tự nhiên, tạo chuỗi suy
 
 \begin{itemize}
 \item Người dùng gửi yêu cầu trò chuyện bằng phương thức POST thiết lập dòng dữ liệu SSE.
-\item Conversation Service kiểm tra quyền VIP của người dùng trên Conversation DB nếu câu hỏi yêu cầu sử dụng tính năng suy luận (`use_reasoning`). Nếu không thỏa mãn, hệ thống trả về lỗi 403.
+\item Conversation Service kiểm tra quyền VIP của người dùng trên Conversation DB nếu câu hỏi yêu cầu sử dụng tính năng suy luận (\texttt{use\_reasoning}). Nếu không thỏa mãn, hệ thống trả về lỗi 403.
 \item Dịch vụ tiếp tục kiểm tra sự tồn tại của cuộc hội thoại trong Database và trả lỗi 404 nếu không tìm thấy.
 \item Sau khi kiểm tra thành công, Conversation Service mở luồng kết nối gRPC Stream gửi yêu cầu tới Chatbot Service.
 \item Chatbot Service lưu tin nhắn của User vào Chatbot DB, sau đó thực hiện truy vấn RAG (truy xuất tri thức từ VectorDB và gọi mô hình LLM) để xử lý sinh câu trả lời.

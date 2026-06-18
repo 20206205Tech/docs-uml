@@ -1,0 +1,32 @@
+@startuml
+participant "Payment Service" as PaymentService
+participant "Payment DB" as DB
+participant "Kafka (Event Bus)" as Kafka
+participant "Conversation Service" as ConversationService
+
+== Pha 4: Transactional Outbox đồng bộ trạng thái VIP ==
+
+note over PaymentService: Outbox Relay Cron quét bảng Outbox định kỳ
+activate PaymentService
+
+PaymentService -> DB: Quét các sự kiện PENDING trong Outbox
+activate DB
+DB --> PaymentService: Trả về SubscriptionPurchasedEvent
+deactivate DB
+
+PaymentService -> Kafka: Publish "SubscriptionPurchased"\nlên topic
+activate Kafka
+Kafka --> PaymentService: Xác nhận lưu trữ sự kiện
+deactivate Kafka
+
+PaymentService -> DB: UPDATE Outbox\n(status='DONE')
+activate DB
+DB --> PaymentService: OK
+deactivate DB
+deactivate PaymentService
+
+activate ConversationService
+Kafka -> ConversationService: Consume "SubscriptionPurchased"\ntừ topic
+ConversationService -> ConversationService: Cập nhật UserSubscription\n(periodEnd, status='ACTIVE') trong local DB
+deactivate ConversationService
+@enduml
