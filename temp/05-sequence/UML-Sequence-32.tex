@@ -1,4 +1,4 @@
-\paragraph{Sơ đồ tuần tự Pha Transactional Outbox đồng bộ trạng thái VIP}
+﻿\paragraph{Sơ đồ tuần tự Pha Transactional Outbox đồng bộ trạng thái VIP}
 
 Pha này mô tả Outbox Relay Cron của Payment Service quét sự kiện đang chờ xử lý, publish sự kiện \texttt{SubscriptionPurchased} lên Kafka và Conversation Service tiêu thụ sự kiện để cập nhật trạng thái VIP cục bộ.
 
@@ -6,7 +6,6 @@ Pha này mô tả Outbox Relay Cron của Payment Service quét sự kiện đan
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-32.png}
 \caption{Sơ đồ tuần tự Pha Transactional Outbox đồng bộ trạng thái VIP}
-\label{fig:seq_purchase_vip_outbox}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
