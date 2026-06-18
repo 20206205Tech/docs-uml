@@ -45,3 +45,17 @@
 ![alt text](images/Share-Revoke-v3.png)
 
 ![alt text](images/Chat-Delete-v3.png)
+
+<!--  -->
+
+![alt text](images/admin-plans.png)
+
+![alt text](images/admin-personas.png)
+
+![alt text](images/admin-engines.png)
+
+![alt text](images/admin-voices.png)
+
+![alt text](images/admin-data-pipeline-vbpl.png)
+
+![alt text](images/admin-data-pipeline-PhapDien.png)
