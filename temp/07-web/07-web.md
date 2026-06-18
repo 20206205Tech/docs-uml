@@ -8,21 +8,21 @@
 
 <!--  -->
 
-![alt text](mfa-qr.png)
+![alt text](Dang-Nhap-v3.png)
 
-![alt text](dang-nhap.png)
+![alt text](Mfa-Qr-v3.png)
 
-![alt text](mfa-code.png)
+![alt text](Mfa-Code-v3.png)
 
-![alt text](profile.png)
+![alt text](Profile-v3.png)
 
-![alt text](change-pass-and-mfa.png)
+![alt text](Change-Pass-And-Mfa-v3.png)
 
-![alt text](settings.png)
+![alt text](Settings-v3.png)
 
-![alt text](reset-pass.png)
+![alt text](Reset-Pass-v3.png)
 
-![alt text](mail-reset-pass.png)
+![alt text](Mail-Reset-Pass-v3.png)
 
 <!--  -->
 
