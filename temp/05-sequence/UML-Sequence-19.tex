@@ -32,11 +32,11 @@ R2 Object Storage & External Service & Hạ tầng lưu trữ đối tượng (O
 \subparagraph{Mô tả tổng quan}
 
 \begin{itemize}
-\item Người dùng gửi yêu cầu chia sẻ cung cấp thông tin định danh `chatId` và `lastMessageId`.
+\item Người dùng gửi yêu cầu chia sẻ cung cấp thông tin định danh `chat_id` và `last_message_id`.
 \item Conversation Service tạo bản ghi chia sẻ với trạng thái 'PENDING' và chèn sự kiện vào bảng outbox cùng transaction trong database đảm bảo tính nguyên tử (atomic).
 \item Dịch vụ phản hồi đường dẫn liên kết tạm thời `shareUrl` giúp giảm thiểu độ trễ phản hồi cho người dùng.
 \item Outbox Relay quét bảng outbox định kỳ, lấy ra các sự kiện chưa xử lý và gửi sự kiện ShareGeneratedEvent vào hàng đợi `share_generated` trên RabbitMQ Broker.
-\item Chatbot Service nhận thông điệp ShareGeneratedEvent từ hàng đợi, sau đó truy vấn danh sách tin nhắn từ Chatbot database tính tới thời điểm `lastMessageId`.
+\item Chatbot Service nhận thông điệp ShareGeneratedEvent từ hàng đợi, sau đó truy vấn danh sách tin nhắn từ Chatbot database tính tới thời điểm `last_message_id`.
 \item Chatbot Service build nội dung chat thành file JSONL và tải lên R2 Object Storage (bucket lưu trữ), đồng thời cập nhật database và phát tán sự kiện ShareUploadCompletedEvent qua RabbitMQ.
 \item Conversation Service tiêu thụ sự kiện từ hàng đợi `share_upload_completed` và cập nhật lại trạng thái chia sẻ thành 'ACTIVE' kèm đường dẫn fileUrl chính thức.
 \end{itemize}

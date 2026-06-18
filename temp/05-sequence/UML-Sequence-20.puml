@@ -8,7 +8,7 @@ participant "Chatbot DB" as ChatbotDB
 participant "R2 Object Storage" as R2
 
 == Luồng Thu hồi chia sẻ cuộc trò chuyện ==
-User -> Conv: POST /code-conversation-service/shares/:id/revoke
+User -> Conv: DELETE /code-conversation-service/shared-chats/:shareId
 activate Conv
 
 Conv -> ConvDB: UPDATE Share (isActive=false) & INSERT Outbox (ShareRevokedEvent)
