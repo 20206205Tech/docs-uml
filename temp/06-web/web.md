@@ -7,7 +7,6 @@
 ![alt text](images/Guest-Mail-Dang-Ky-V2-v3.png)
 
 <!--  -->
-
 ![alt text](images/Dang-Nhap-v3.png)
 
 ![alt text](images/Mfa-Qr-v3.png)
@@ -25,7 +24,6 @@
 ![alt text](images/Mail-Reset-Pass-v3.png)
 
 <!--  -->
-
 ![alt text](images/Chat-Text-v3.png)
 
 ![alt text](images/Chat-Micro-v3.png)
@@ -71,3 +69,15 @@
 ![alt text](images/pay-mail.png)
 
 ![alt text](images/pay-plan-with-ok.png)
+
+<!--  -->
+
+![alt text](images/voice-select.png)
+
+![alt text](images/voice-chat.png)
+
+<!--  -->
+
+![alt text](images/doc-upload.png)
+
+![alt text](images/doc-chat.png)
