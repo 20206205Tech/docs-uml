@@ -56,7 +56,8 @@ wbsDiagram {
 **** Cung cấp danh sách nhân vật
 **** Quản trị nhân vật ảo (ADMIN)
 **** Quản trị TTS Engine (ADMIN)
-**** Quản trị cấu hình giọng nói ElevenLabs (ADMIN)
+**** Quản trị giọng nói (Voices) (ADMIN)
+**** Đồng bộ giọng nói ElevenLabs (ADMIN)
 *** Quản trị Bảng điều khiển (Admin Dashboard)
 **** Luồng dữ liệu VBPL
 **** Luồng dữ liệu Pháp Điển
