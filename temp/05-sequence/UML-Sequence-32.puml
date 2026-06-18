@@ -1,8 +1,8 @@
-@startuml
+﻿@startuml
 participant "Payment Service" as PaymentService
 participant "Payment DB" as DB
 participant "Kafka (Event Bus)" as Kafka
-participant "Conversation Service" as ConversationService
+participant "Consumer Service" as ConsumerService
 
 == Pha 4: Transactional Outbox đồng bộ trạng thái VIP ==
 
@@ -25,8 +25,8 @@ DB --> PaymentService: OK
 deactivate DB
 deactivate PaymentService
 
-activate ConversationService
-Kafka -> ConversationService: Consume "SubscriptionPurchased"\ntừ topic
-ConversationService -> ConversationService: Cập nhật UserSubscription\n(periodEnd, status='ACTIVE') trong local DB
-deactivate ConversationService
+activate ConsumerService
+Kafka -> ConsumerService: Consume "SubscriptionPurchased"\ntừ topic
+ConsumerService -> ConsumerService: Xử lý event theo ngữ cảnh service\n(ví dụ: cập nhật UserSubscription)
+deactivate ConsumerService
 @enduml

@@ -1,6 +1,6 @@
 ﻿\paragraph{Sơ đồ tuần tự Pha Transactional Outbox đồng bộ trạng thái VIP}
 
-Pha này mô tả Outbox Relay Cron của Payment Service quét sự kiện đang chờ xử lý, publish sự kiện \texttt{SubscriptionPurchased} lên Kafka và Conversation Service tiêu thụ sự kiện để cập nhật trạng thái VIP cục bộ.
+Pha này mô tả Outbox Relay Cron của Payment Service quét sự kiện đang chờ xử lý, publish sự kiện \texttt{SubscriptionPurchased} lên Kafka và Consumer Service tiêu thụ sự kiện để xử lý theo ngữ cảnh riêng của từng service.
 
 \begin{figure}[H]
 \centering
@@ -19,7 +19,7 @@ Pha này mô tả Outbox Relay Cron của Payment Service quét sự kiện đan
 Payment Service & Microservice & Chạy Outbox Relay Cron, publish event và đánh dấu sự kiện đã xử lý. \\ \hline
 Payment DB & Database & Lưu bảng Outbox và trạng thái xử lý sự kiện. \\ \hline
 Kafka & Message Broker & Event bus truyền tải sự kiện mua gói VIP. \\ \hline
-Conversation Service & Microservice & Tiêu thụ sự kiện để đồng bộ trạng thái subscription trong local DB. \\ \hline
+Consumer Service & Microservice & Tiêu thụ sự kiện từ Kafka để đồng bộ dữ liệu hoặc kích hoạt xử lý nghiệp vụ trong local DB của service đó. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia pha Transactional Outbox đồng bộ trạng thái VIP}
 \end{table}
@@ -28,5 +28,5 @@ Conversation Service & Microservice & Tiêu thụ sự kiện để đồng bộ
 \begin{itemize}
 \item \textbf{Quét Outbox:} Outbox Relay Cron định kỳ đọc các sự kiện \texttt{PENDING}.
 \item \textbf{Publish sự kiện:} Payment Service publish \texttt{SubscriptionPurchased} lên Kafka và cập nhật Outbox thành \texttt{DONE}.
-\item \textbf{Đồng bộ consumer:} Conversation Service tiêu thụ event và cập nhật UserSubscription local thành \texttt{ACTIVE}.
+\item \textbf{Đồng bộ consumer:} Consumer Service tiêu thụ event và xử lý theo ngữ cảnh riêng, ví dụ cập nhật UserSubscription local thành \texttt{ACTIVE}.
 \end{itemize}
