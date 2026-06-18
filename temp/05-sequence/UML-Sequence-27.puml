@@ -22,7 +22,7 @@ deactivate VbplService
 Kong --> Frontend: Trả về tổng số văn bản VBPL
 deactivate Kong
 
-Frontend -> Kong: GET /data-pipeline-vbplnew-service/workflows/summary
+Frontend -> Kong: GET /data-pipeline-vbplnew-service/workflows/summary\n[Headers: Authorization: Bearer <token>]
 activate Kong
 Kong -> VbplService: Chuyển tiếp yêu cầu lấy summary các workflow
 activate VbplService

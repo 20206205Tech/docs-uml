@@ -28,7 +28,7 @@ Pipeline Database & Database & Cơ sở dữ liệu lưu trữ kết quả thố
 
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
-\item \textbf{Yêu cầu xem báo cáo:} Admin truy cập vào Dashboard quản trị. Web Frontend gửi hai yêu cầu qua Kong Gateway tới VBPL Pipeline Service:
+\item \textbf{Yêu cầu xem báo cáo:} Admin truy cập vào Dashboard quản trị. Web Frontend gửi hai yêu cầu qua Kong Gateway tới VBPL Pipeline Service, mỗi yêu cầu đều kèm Bearer Token của tài khoản Admin:
     \begin{itemize}
     \item \texttt{GET /data-pipeline-vbplnew-service/documents/total}: Lấy tổng số văn bản luật đã thu thập và mốc thời gian cập nhật gần nhất.
     \item \texttt{GET /data-pipeline-vbplnew-service/workflows/summary}: Lấy số lượng văn bản đang nằm ở các bước xử lý (như cào dữ liệu, trích xuất text, chia nhỏ chunk, tạo nhúng vector RAG).
