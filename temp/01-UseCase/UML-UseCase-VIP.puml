@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "User" as User
+actor "VIP" as VIP
+actor "LiveKit" as LiveKit << System >>
+
+VIP -|> User
+
+rectangle "Chức năng dành cho VIP" {
+  usecase "Hỏi đáp pháp lý" as UC_Chat
+  usecase "Sử dụng reasoning nâng cao" as UC_AdvancedReasoning
+  usecase "Đàm thoại trực tiếp với AI\nbằng giọng nói" as UC_VoiceChat
+  usecase "Tải lên tài liệu" as UC_UploadDocument
+  usecase "Theo dõi trạng thái\nxử lý tài liệu" as UC_DocumentStatus
+  usecase "Thử lại xử lý\ntài liệu lỗi" as UC_RetryDocument
+  usecase "Phân tích tài liệu cá nhân" as UC_AnalyzeDocument
+
+  UC_VoiceChat ..> UC_Chat : <<extend>>
+  UC_AdvancedReasoning ..> UC_Chat : <<extend>>
+  UC_AnalyzeDocument ..> UC_AdvancedReasoning : <<include>>
+  UC_AnalyzeDocument ..> UC_DocumentStatus : <<include>>
+}
+
+VIP -- UC_AdvancedReasoning
+VIP -- UC_VoiceChat
+VIP -- UC_UploadDocument
+VIP -- UC_DocumentStatus
+VIP -- UC_RetryDocument
+VIP -- UC_AnalyzeDocument
+
+UC_VoiceChat --- LiveKit
+@enduml
