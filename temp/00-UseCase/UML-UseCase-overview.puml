@@ -17,6 +17,10 @@ User  -|> Guest
 
 
 
+
+
+
+
 rectangle "Hệ thống tư vấn pháp luật AI" {
   usecase "Xem trang chủ" as UC_Home
   usecase "Xem giới thiệu hệ thống" as UC_Intro
@@ -29,6 +33,9 @@ rectangle "Hệ thống tư vấn pháp luật AI" {
   usecase "Quản lý hồ sơ cá nhân" as UC_Profile
   usecase "Đổi / Quên mật khẩu" as UC_Password
   usecase "Cấu hình cài đặt" as UC_Settings
+  usecase "Hỏi đáp pháp lý" as UC_Chat
+  usecase "Đánh dấu trò chuyện" as UC_Bookmark
+  usecase "Chia sẻ trò chuyện" as UC_Share
 
   UC_Home ..> UC_Intro : <<include>>
   UC_Home ..> UC_Pricing : <<include>>
@@ -43,6 +50,9 @@ User -- UC_MFA
 User -- UC_Profile
 User -- UC_Password
 User -- UC_Settings
+User -- UC_Chat
+User -- UC_Bookmark
+User -- UC_Share
 
 UC_Register -- Supabase
 UC_Login -- Supabase
