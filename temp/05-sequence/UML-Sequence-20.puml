@@ -7,7 +7,7 @@ participant "Chatbot Service" as Chatbot
 participant "Chatbot DB" as ChatbotDB
 participant "R2 Object Storage" as R2
 
-== Bước 1: Gửi yêu cầu thu hồi ==
+== Gửi yêu cầu thu hồi ==
 User -> Conv: POST /code-conversation-service/shares/:id/revoke
 activate Conv
 
@@ -19,7 +19,7 @@ deactivate ConvDB
 Conv --> User: HTTP 200 OK (Xác nhận thu hồi thành công)
 deactivate Conv
 
-== Bước 2: Relayer quét Outbox gửi đi ==
+== Relayer quét Outbox gửi đi ==
 note over Conv, RabbitMQ: Cron job OutboxRelay quét DB định kỳ gửi event
 Conv -> ConvDB: SELECT PENDING OutboxEvents
 activate ConvDB
@@ -36,7 +36,7 @@ activate ConvDB
 ConvDB --> Conv: OK
 deactivate ConvDB
 
-== Bước 3: Chatbot xử lý thu hồi ==
+== Chatbot xử lý thu hồi ==
 RabbitMQ --> Chatbot: Consume 'ShareRevokedEvent'
 activate Chatbot
 

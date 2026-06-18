@@ -6,11 +6,11 @@ participant "RabbitMQ Broker" as RabbitMQ
 participant "Chatbot Service\n(Python)" as Chatbot
 participant "Chatbot DB" as ChatbotDB
 
-== Bước 1: User gửi yêu cầu xóa ==
+== User gửi yêu cầu xóa ==
 User -> Conv: DELETE /code-conversation-service/chats/:id
 activate Conv
 
-== Bước 2: Lưu trạng thái và ghi nhận Outbox ==
+== Lưu trạng thái và ghi nhận Outbox ==
 Conv -> ConvDB: UPDATE Chat (isActive=false) & INSERT Outbox (ChatDeletedEvent)
 activate ConvDB
 ConvDB --> Conv: Commit Transaction
@@ -19,7 +19,7 @@ deactivate ConvDB
 Conv --> User: HTTP 200 OK (Phản hồi thành công ngay lập tức)
 deactivate Conv
 
-== Bước 3: Relayer quét Outbox gửi đi ==
+== Relayer quét Outbox gửi đi ==
 note over Conv, RabbitMQ: Cron job OutboxRelay quét DB định kỳ
 Conv -> ConvDB: SELECT PENDING OutboxEvents
 activate ConvDB
@@ -36,7 +36,7 @@ activate ConvDB
 ConvDB --> Conv: OK
 deactivate ConvDB
 
-== Bước 4: Python xử lý đồng bộ xóa ==
+== Chatbot xử lý đồng bộ xóa ==
 RabbitMQ --> Chatbot: Consume 'ChatDeletedEvent' (args: chatId, userId)
 activate Chatbot
 
