@@ -1,77 +1,84 @@
 @startuml
-actor "User" as User
-actor "Guest / Viewer" as Viewer
-participant "Web Frontend" as Frontend
-participant "API Gateway\n(Kong)" as Kong
-participant "Conversation Service" as ConvService
-participant "Neon Database" as DB
+actor User as User
+participant "Conversation Service" as Conv
+participant "Conversation DB" as ConvDB
+participant "RabbitMQ Broker" as RabbitMQ
+participant "Chatbot Service" as Chatbot
+participant "Chatbot DB" as ChatbotDB
+participant "R2 Object Storage" as R2
 
-== Luồng 1: Tạo liên kết chia sẻ cuộc trò chuyện ==
-User -> Frontend: Nhấn nút "Chia sẻ cuộc trò chuyện"
-activate Frontend
+== Gửi yêu cầu chia sẻ ==
+User -> Conv: POST /code-conversation-service/chats/share\n(Kèm chatId & lastMessageId)
+activate Conv
 
-Frontend -> Kong: POST /conversation-service/v1/shares\n[Headers: Authorization: Bearer <token>] \n(conversationId)
-activate Kong
+Conv -> ConvDB: Kiểm tra quyền sở hữu Chat
+activate ConvDB
+ConvDB --> Conv: OK
+deactivate ConvDB
 
-Kong -> ConvService: Chuyển tiếp yêu cầu tạo share link
-activate ConvService
+Conv -> ConvDB: INSERT Share (status='PENDING') & INSERT Outbox (ShareGeneratedEvent)
+activate ConvDB
+ConvDB --> Conv: Commit Transaction (Atomic)
+deactivate ConvDB
 
-ConvService -> DB: Tạo bản ghi Share mới (generate unique shareToken, status = active)
-activate DB
-DB --> ConvService: Bản ghi Share mới (shareToken)
-deactivate DB
+Conv --> User: HTTP 201 Created (Trả về shareId & shareUrl tạm thời)
+deactivate Conv
 
-ConvService --> Kong: Trả về URL chia sẻ: /shares/{shareToken}
-deactivate ConvService
-Kong --> Frontend: Trả về URL chia sẻ
-deactivate Kong
+== Relayer quét Outbox gửi đi ==
+note over Conv, RabbitMQ: Cron job OutboxRelay quét DB định kỳ gửi event
+Conv -> ConvDB: SELECT PENDING OutboxEvents
+activate ConvDB
+ConvDB --> Conv: Danh sách events
+deactivate ConvDB
 
-Frontend --> User: Hiển thị URL chia sẻ và nút "Copy"
-deactivate Frontend
+Conv -> RabbitMQ: Publish 'ShareGeneratedEvent' (Queue: share_generated)
+activate RabbitMQ
+RabbitMQ --> Conv: Ack
+deactivate RabbitMQ
 
-== Luồng 2: Viewer truy cập cuộc trò chuyện được chia sẻ (Read-only) ==
-Viewer -> Frontend: Truy cập liên kết chia sẻ (/shares/{shareToken})
-activate Frontend
+Conv -> ConvDB: UPDATE Outbox status='DONE'
+activate ConvDB
+ConvDB --> Conv: OK
+deactivate ConvDB
 
-Frontend -> Kong: GET /conversation-service/v1/shares/{shareToken}
-activate Kong
+== Xử lý đồng bộ phía Chatbot ==
+RabbitMQ --> Chatbot: Consume 'ShareGeneratedEvent'
+activate Chatbot
 
-Kong -> ConvService: Chuyển tiếp yêu cầu lấy nội dung chia sẻ
-activate ConvService
+Chatbot -> ChatbotDB: Query tin nhắn của Chat đến lastMessageId
+activate ChatbotDB
+ChatbotDB --> Chatbot: Danh sách tin nhắn
+deactivate ChatbotDB
 
-ConvService -> DB: Truy vấn trạng thái shareToken & lịch sử cuộc trò chuyện liên quan
-activate DB
-DB --> ConvService: Trả về lịch sử trò chuyện (Nếu status = active)
-deactivate DB
+note over Chatbot: Xử lý build nội dung chat thành JSONL
 
-ConvService --> Kong: Trả về thông tin hội thoại (Read-only JSON)
-deactivate ConvService
-Kong --> Frontend: Trả về thông tin hội thoại
-deactivate Kong
+Chatbot -> R2: Upload file JSONL (Key: shared_chats/{userId}/{shareId}.jsonl)
+activate R2
+R2 --> Chatbot: Trả về file_url
+deactivate R2
 
-Frontend --> Viewer: Hiển thị giao diện lịch sử trò chuyện (Không có ô chat/gửi tin nhắn)
-deactivate Frontend
+Chatbot -> ChatbotDB: Lưu thông tin Share và Version mới để đồng bộ
+activate ChatbotDB
+ChatbotDB --> Chatbot: OK
+deactivate ChatbotDB
 
-== Luồng 3: Thu hồi liên kết chia sẻ ==
-User -> Frontend: Chọn quản lý liên kết và bấm "Thu hồi chia sẻ"
-activate Frontend
+Chatbot -> RabbitMQ: Publish 'ShareUploadCompletedEvent' (Queue: share_upload_completed)
+activate RabbitMQ
+RabbitMQ --> Chatbot: Ack
+deactivate RabbitMQ
 
-Frontend -> Kong: DELETE /conversation-service/v1/shares/{shareToken}\n[Headers: Authorization: Bearer <token>]
-activate Kong
+Chatbot --> RabbitMQ: Acknowledge (Hoàn thành Task gốc)
+deactivate Chatbot
 
-Kong -> ConvService: Chuyển tiếp yêu cầu thu hồi
-activate ConvService
+== Nhận thông tin upload hoàn tất ==
+RabbitMQ --> Conv: Consume 'ShareUploadCompletedEvent'
+activate Conv
 
-ConvService -> DB: Cập nhật trạng thái shareToken (status = revoked hoặc xóa bản ghi)
-activate DB
-DB --> ConvService: OK
-deactivate DB
+Conv -> ConvDB: Cập nhật Share (status='ACTIVE', fileUrl=fileUrl)
+activate ConvDB
+ConvDB --> Conv: OK
+deactivate ConvDB
 
-ConvService --> Kong: Thu hồi thành công (HTTP 200 OK)
-deactivate ConvService
-Kong --> Frontend: Thu hồi thành công
-deactivate Kong
-
-Frontend --> User: Thông báo thu hồi thành công, liên kết chia sẻ không còn hiệu lực
-deactivate Frontend
+Conv --> RabbitMQ: Acknowledge
+deactivate Conv
 @enduml

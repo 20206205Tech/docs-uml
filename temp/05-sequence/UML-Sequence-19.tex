@@ -1,12 +1,12 @@
-\paragraph{Sơ đồ tuần tự Chia sẻ và Thu hồi cuộc trò chuyện (Share \& Revoke Flow)}
+\paragraph{Sơ đồ tuần tự Luồng Tạo Chia sẻ cuộc trò chuyện}
 
-Luồng nghiệp vụ này mô tả quy trình người dùng tạo liên kết chia sẻ cuộc trò chuyện pháp lý của mình ra ngoài công cộng, quy trình khách truy cập (Guest/Viewer) xem nội dung cuộc trò chuyện đó dưới dạng chỉ đọc (Read-only), và quy trình người dùng thu hồi liên kết chia sẻ.
+Luồng nghiệp vụ này mô tả vòng đời của một yêu cầu chia sẻ cuộc trò chuyện, lưu trữ dữ liệu trò chuyện dưới dạng tệp tin JSONL trên Cloud Storage, và đồng bộ trạng thái giữa các dịch vụ thông qua mô hình Transactional Outbox kết hợp Message Broker.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale = 0.18]{pictures/UML-Sequence-19.png}
-\caption{Sơ đồ tuần tự Chia sẻ và Thu hồi cuộc trò chuyện}
-\label{fig:seq_share}
+\caption{Sơ đồ tuần tự Luồng Tạo Chia sẻ cuộc trò chuyện}
+\label{fig:seq_share_chat}
 \end{figure}
 
 \subparagraph{Các thành phần tham gia}
@@ -17,19 +17,26 @@ Luồng nghiệp vụ này mô tả quy trình người dùng tạo liên kết 
 \begin{tabular}{|l|l|p{5cm}|}
 \hline
 \textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
-User & Actor & Người dùng sở hữu cuộc trò chuyện, thực hiện tạo hoặc thu hồi chia sẻ. \\ \hline
-Viewer & Actor & Khách vãng lai truy cập liên kết chia sẻ để đọc nội dung. \\ \hline
-Web Frontend & Component & Giao diện Next.js hiển thị liên kết chia sẻ cho User, và hiển thị giao diện chỉ đọc cho Viewer. \\ \hline
-API Gateway (Kong) & Component & Định tuyến các API tạo, đọc và xóa liên kết chia sẻ. \\ \hline
-Conversation Service & Microservice & Tiếp nhận yêu cầu, sinh mã token ngẫu nhiên độc nhất và truy xuất dữ liệu liên quan. \\ \hline
-Neon Database & Database & Lưu trữ các bản ghi liên kết chia sẻ và trạng thái hoạt động (active/revoked). \\ \hline
+User & Actor & Người dùng gửi yêu cầu chia sẻ cuộc trò chuyện kèm theo tham số tin nhắn cuối để giới hạn phạm vi chia sẻ. \\ \hline
+Conversation Service & Microservice & Dịch vụ quản lý chịu trách nhiệm tiếp nhận API từ người dùng, quản lý giao dịch Outbox và cập nhật trạng thái chia sẻ cuối cùng. \\ \hline
+Conversation DB & Database & Cơ sở dữ liệu của Conversation Service, lưu trữ thông tin chung về trò chuyện, bản ghi chia sẻ và các sự kiện trong bảng Outbox. \\ \hline
+RabbitMQ Broker & Message Broker & Message Broker nhận sự kiện và phân phối đến các dịch vụ theo dõi. \\ \hline
+Chatbot Service & Microservice & Dịch vụ AI, chịu trách nhiệm nhận sự kiện, trích xuất nội dung tin nhắn và tải lên file chia sẻ. \\ \hline
+Chatbot DB & Database & Cơ sở dữ liệu của Chatbot Service, lưu trữ lịch sử tin nhắn chi tiết của cuộc trò chuyện và ghi nhận thông tin phiên bản đồng bộ của yêu cầu chia sẻ. \\ \hline
+R2 Object Storage & External Service & Hạ tầng lưu trữ đối tượng (Object Storage tương thích S3), sử dụng để lưu trữ tệp tin cấu trúc JSONL chứa nội dung chi tiết của cuộc trò chuyện được chia sẻ. \\ \hline
 \end{tabular}
-\caption{Các thành phần tham gia luồng Chia sẻ và Thu hồi cuộc trò chuyện}
+\caption{Danh sách các thành phần và vai trò trong Sơ đồ tuần tự Luồng Tạo Chia sẻ cuộc trò chuyện}
+\label{tab:system_components_share_chat}
 \end{table}
 
-\subparagraph{Mô tả chi tiết}
+\subparagraph{Mô tả tổng quan}
+
 \begin{itemize}
-\item \textbf{Tạo liên kết chia sẻ}: User chọn chia sẻ, Frontend gửi `POST /shares` qua Kong Gateway tới Conversation Service. Dịch vụ tạo token ngẫu nhiên, lưu vào Neon Database ở trạng thái `active` và trả về URL dạng `/shares/{token}`.
-\item \textbf{Viewer truy cập}: Viewer mở liên kết, Frontend gọi API `GET /shares/{token}`. Conversation Service kiểm tra nếu token còn hiệu lực (`active`), sẽ truy vấn lịch sử hội thoại tương ứng trong Database và trả về dạng chỉ đọc (không cho phép gửi tin nhắn mới).
-\item \textbf{Thu hồi liên kết}: Khi không muốn chia sẻ nữa, User bấm thu hồi. Frontend gửi yêu cầu `DELETE /shares/{token}` qua Gateway đến Conversation Service để đánh dấu trạng thái token thành `revoked` (hoặc xóa khỏi Database), vô hiệu hóa hoàn toàn liên kết chia sẻ.
+\item Người dùng gửi yêu cầu chia sẻ cung cấp thông tin định danh `chatId` và `lastMessageId`.
+\item Conversation Service tạo bản ghi chia sẻ với trạng thái 'PENDING' và chèn sự kiện vào bảng outbox cùng transaction trong database đảm bảo tính nguyên tử (atomic).
+\item Dịch vụ phản hồi đường dẫn liên kết tạm thời `shareUrl` giúp giảm thiểu độ trễ phản hồi cho người dùng.
+\item Outbox Relay quét bảng outbox định kỳ, lấy ra các sự kiện chưa xử lý và gửi sự kiện ShareGeneratedEvent vào hàng đợi `share_generated` trên RabbitMQ Broker.
+\item Chatbot Service nhận thông điệp ShareGeneratedEvent từ hàng đợi, sau đó truy vấn danh sách tin nhắn từ Chatbot database tính tới thời điểm `lastMessageId`.
+\item Chatbot Service build nội dung chat thành file JSONL và tải lên R2 Object Storage (bucket lưu trữ), đồng thời cập nhật database và phát tán sự kiện ShareUploadCompletedEvent qua RabbitMQ.
+\item Conversation Service tiêu thụ sự kiện từ hàng đợi `share_upload_completed` và cập nhật lại trạng thái chia sẻ thành 'ACTIVE' kèm đường dẫn fileUrl chính thức.
 \end{itemize}

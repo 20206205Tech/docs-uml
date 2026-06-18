@@ -1,32 +1,50 @@
 @startuml
-actor "User" as User
-participant "Web Frontend" as Frontend
-participant "API Gateway\n(Kong)" as Kong
-participant "Conversation Service" as ConvService
-participant "Neon Database" as DB
+actor User as User
+participant "Conversation Service\n(NestJS)" as Conv
+participant "Conversation DB" as ConvDB
+participant "RabbitMQ Broker" as RabbitMQ
+participant "Chatbot Service\n(Python)" as Chatbot
+participant "Chatbot DB" as ChatbotDB
 
-== Luồng Đánh dấu tin nhắn / cuộc hội thoại (Bookmark Flow) ==
-User -> Frontend: Chọn tin nhắn hoặc hội thoại cần lưu, bấm "Đánh dấu"
-activate Frontend
+== Bước 1: User gửi yêu cầu xóa ==
+User -> Conv: DELETE /code-conversation-service/chats/:id
+activate Conv
 
-Frontend -> User: Hiển thị form chọn thư mục & ghi chú thêm
-User -> Frontend: Nhập tên thư mục (hoặc chọn thư mục có sẵn) và ghi chú
-Frontend -> Kong: POST /conversation-service/v1/bookmarks\n[Headers: Authorization: Bearer <token>] \n(messageId, folderName, notes)
-activate Kong
+== Bước 2: Lưu trạng thái và ghi nhận Outbox ==
+Conv -> ConvDB: UPDATE Chat (isActive=false) & INSERT Outbox (ChatDeletedEvent)
+activate ConvDB
+ConvDB --> Conv: Commit Transaction
+deactivate ConvDB
 
-Kong -> ConvService: Chuyển tiếp yêu cầu đánh dấu
-activate ConvService
+Conv --> User: HTTP 200 OK (Phản hồi thành công ngay lập tức)
+deactivate Conv
 
-ConvService -> DB: Kiểm tra sự tồn tại của tin nhắn và tạo bản ghi Bookmark
-activate DB
-DB --> ConvService: Bản ghi Bookmark mới được tạo thành công
-deactivate DB
+== Bước 3: Relayer quét Outbox gửi đi ==
+note over Conv, RabbitMQ: Cron job OutboxRelay quét DB định kỳ
+Conv -> ConvDB: SELECT PENDING OutboxEvents
+activate ConvDB
+ConvDB --> Conv: Danh sách events
+deactivate ConvDB
 
-ConvService --> Kong: Trả về kết quả đánh dấu thành công (HTTP 201 Created)
-deactivate ConvService
-Kong --> Frontend: Trả về kết quả đánh dấu thành công
-deactivate Kong
+Conv -> RabbitMQ: Publish 'ChatDeletedEvent' (Queue: chat_deletions)
+activate RabbitMQ
+RabbitMQ --> Conv: Ack
+deactivate RabbitMQ
 
-Frontend --> User: Hiển thị trạng thái "Đã đánh dấu" và lưu trữ thông tin cục bộ
-deactivate Frontend
+Conv -> ConvDB: UPDATE Outbox status='DONE'
+activate ConvDB
+ConvDB --> Conv: OK
+deactivate ConvDB
+
+== Bước 4: Python xử lý đồng bộ xóa ==
+RabbitMQ --> Chatbot: Consume 'ChatDeletedEvent' (args: chatId, userId)
+activate Chatbot
+
+Chatbot -> ChatbotDB: Soft Delete toàn bộ Messages liên quan tới chatId
+activate ChatbotDB
+ChatbotDB --> Chatbot: OK
+deactivate ChatbotDB
+
+Chatbot --> RabbitMQ: Acknowledge (Hoàn tất)
+deactivate Chatbot
 @enduml
