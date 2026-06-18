@@ -1,0 +1,37 @@
+\paragraph{Sơ đồ tuần tự Hỏi đáp pháp lý với AI (AI Chat Flow)}
+
+Luồng nghiệp vụ này mô tả chi tiết quá trình người dùng gửi câu hỏi pháp lý và nhận phản hồi trực tiếp dạng truyền dòng dữ liệu (Streaming Response - Server-Sent Events) từ AI trợ lý thông qua Dịch vụ Trò chuyện và Dịch vụ Chatbot.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.18]{pictures/UML-Sequence-17.png}
+\caption{Sơ đồ tuần tự Hỏi đáp pháp lý với AI}
+\label{fig:seq_ai_chat}
+\end{figure}
+
+\subparagraph{Các thành phần tham gia}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|p{5cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
+User & Actor & Người dùng nhập nội dung câu hỏi hoặc ghi âm. \\ \hline
+Web Frontend & Component & Giao diện Next.js quản lý hiển thị đoạn hội thoại và tiếp nhận stream dữ liệu. \\ \hline
+API Gateway (Kong) & Component & Cổng trung gian chịu trách nhiệm xác thực token và duy trì kết nối HTTP stream. \\ \hline
+Conversation Service & Microservice & Dịch vụ chịu trách nhiệm lưu trữ tin nhắn vào Database và trung chuyển dữ liệu streaming. \\ \hline
+Chatbot Service & Microservice & Dịch vụ xử lý logic AI, liên kết với LLM và tạo phản hồi dạng streaming. \\ \hline
+Neon Database & Database & Cơ sở dữ liệu lưu trữ lịch sử các tin nhắn của người dùng và bot. \\ \hline
+\end{tabular}
+\caption{Các thành phần tham gia luồng Hỏi đáp pháp lý với AI}
+\end{table}
+
+\subparagraph{Mô tả chi tiết}
+\begin{itemize}
+\item Người dùng nhập câu hỏi trên Web Frontend. Frontend thiết lập kết nối streaming và gửi yêu cầu `POST /chats/stream` qua Gateway đến Conversation Service.
+\item Conversation Service ngay lập tức ghi nhận tin nhắn của User vào Neon Database để đảm bảo lịch sử hội thoại được cập nhật.
+\item Yêu cầu sau đó được gửi tiếp tới Chatbot Service để truy vấn LLM. Kết quả phản hồi từ LLM được Chatbot Service gửi trả về dưới dạng các phần nhỏ (chunks) dữ liệu.
+\item Conversation Service nhận các chunks và đẩy liên tục thông qua kết nối SSE qua Gateway về Frontend để hiển thị trực tiếp cho người dùng.
+\item Khi kết thúc, Conversation Service ghi nhận nội dung câu trả lời hoàn chỉnh của Bot vào Database và đóng kết nối stream.
+\end{itemize}

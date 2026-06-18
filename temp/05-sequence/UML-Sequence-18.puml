@@ -1,0 +1,32 @@
+@startuml
+actor "User" as User
+participant "Web Frontend" as Frontend
+participant "API Gateway\n(Kong)" as Kong
+participant "Conversation Service" as ConvService
+participant "Neon Database" as DB
+
+== Luồng Đánh dấu tin nhắn / cuộc hội thoại (Bookmark Flow) ==
+User -> Frontend: Chọn tin nhắn hoặc hội thoại cần lưu, bấm "Đánh dấu"
+activate Frontend
+
+Frontend -> User: Hiển thị form chọn thư mục & ghi chú thêm
+User -> Frontend: Nhập tên thư mục (hoặc chọn thư mục có sẵn) và ghi chú
+Frontend -> Kong: POST /conversation-service/v1/bookmarks\n[Headers: Authorization: Bearer <token>] \n(messageId, folderName, notes)
+activate Kong
+
+Kong -> ConvService: Chuyển tiếp yêu cầu đánh dấu
+activate ConvService
+
+ConvService -> DB: Kiểm tra sự tồn tại của tin nhắn và tạo bản ghi Bookmark
+activate DB
+DB --> ConvService: Bản ghi Bookmark mới được tạo thành công
+deactivate DB
+
+ConvService --> Kong: Trả về kết quả đánh dấu thành công (HTTP 201 Created)
+deactivate ConvService
+Kong --> Frontend: Trả về kết quả đánh dấu thành công
+deactivate Kong
+
+Frontend --> User: Hiển thị trạng thái "Đã đánh dấu" và lưu trữ thông tin cục bộ
+deactivate Frontend
+@enduml

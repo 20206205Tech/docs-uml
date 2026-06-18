@@ -1,0 +1,52 @@
+@startuml
+actor "User" as User
+participant "Web Frontend" as Frontend
+participant "API Gateway\n(Kong)" as Kong
+participant "Conversation Service" as ConvService
+participant "Chatbot Service" as ChatbotService
+participant "Neon Database" as DB
+
+== Luồng Hỏi đáp pháp lý với AI (Text / Voice Chat Streaming) ==
+User -> Frontend: Nhập câu hỏi (text/voice) và nhấn "Gửi"
+activate Frontend
+
+Frontend -> Frontend: Khởi tạo kết nối SSE (Server-Sent Events) hoặc REST POST
+Frontend -> Kong: POST /conversation-service/v1/chats/stream\n[Headers: Authorization: Bearer <token>]
+activate Kong
+
+Kong -> ConvService: Chuyển tiếp yêu cầu trò chuyện
+activate ConvService
+
+ConvService -> DB: Lưu tin nhắn của User (role = user, content, timestamp)
+activate DB
+DB --> ConvService: Trả về Message ID
+deactivate DB
+
+ConvService -> ChatbotService: Gửi tin nhắn và lịch sử trò chuyện để xử lý AI
+activate ChatbotService
+
+ChatbotService -> ChatbotService: Phân tích nội dung và cấu hình nhân vật (Persona)
+ChatbotService -> ChatbotService: Thực hiện gọi LLM Model (Streaming response)
+
+ChatbotService --> ConvService: Trả về dòng dữ liệu (Stream of chunks)
+deactivate ChatbotService
+
+loop Gửi từng phần phản hồi (Streaming chunks)
+    ConvService --> Kong: Đẩy chunk văn bản (SSE Event: message)
+    Kong --> Frontend: Truyền chunk văn bản tới client
+end
+
+ConvService -> DB: Lưu tin nhắn hoàn chỉnh của Bot (role = assistant, content)
+activate DB
+DB --> ConvService: OK
+deactivate DB
+
+ConvService --> Kong: Đóng luồng kết nối SSE (Event: done)
+deactivate ConvService
+Kong --> Frontend: Kết thúc stream
+deactivate Kong
+
+Frontend -> Frontend: Cập nhật tin nhắn hoàn chỉnh vào UI
+Frontend --> User: Hiển thị câu trả lời đầy đủ từ AI trợ lý
+deactivate Frontend
+@enduml

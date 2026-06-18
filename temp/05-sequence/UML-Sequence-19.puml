@@ -1,0 +1,77 @@
+@startuml
+actor "User" as User
+actor "Guest / Viewer" as Viewer
+participant "Web Frontend" as Frontend
+participant "API Gateway\n(Kong)" as Kong
+participant "Conversation Service" as ConvService
+participant "Neon Database" as DB
+
+== Luồng 1: Tạo liên kết chia sẻ cuộc trò chuyện ==
+User -> Frontend: Nhấn nút "Chia sẻ cuộc trò chuyện"
+activate Frontend
+
+Frontend -> Kong: POST /conversation-service/v1/shares\n[Headers: Authorization: Bearer <token>] \n(conversationId)
+activate Kong
+
+Kong -> ConvService: Chuyển tiếp yêu cầu tạo share link
+activate ConvService
+
+ConvService -> DB: Tạo bản ghi Share mới (generate unique shareToken, status = active)
+activate DB
+DB --> ConvService: Bản ghi Share mới (shareToken)
+deactivate DB
+
+ConvService --> Kong: Trả về URL chia sẻ: /shares/{shareToken}
+deactivate ConvService
+Kong --> Frontend: Trả về URL chia sẻ
+deactivate Kong
+
+Frontend --> User: Hiển thị URL chia sẻ và nút "Copy"
+deactivate Frontend
+
+== Luồng 2: Viewer truy cập cuộc trò chuyện được chia sẻ (Read-only) ==
+Viewer -> Frontend: Truy cập liên kết chia sẻ (/shares/{shareToken})
+activate Frontend
+
+Frontend -> Kong: GET /conversation-service/v1/shares/{shareToken}
+activate Kong
+
+Kong -> ConvService: Chuyển tiếp yêu cầu lấy nội dung chia sẻ
+activate ConvService
+
+ConvService -> DB: Truy vấn trạng thái shareToken & lịch sử cuộc trò chuyện liên quan
+activate DB
+DB --> ConvService: Trả về lịch sử trò chuyện (Nếu status = active)
+deactivate DB
+
+ConvService --> Kong: Trả về thông tin hội thoại (Read-only JSON)
+deactivate ConvService
+Kong --> Frontend: Trả về thông tin hội thoại
+deactivate Kong
+
+Frontend --> Viewer: Hiển thị giao diện lịch sử trò chuyện (Không có ô chat/gửi tin nhắn)
+deactivate Frontend
+
+== Luồng 3: Thu hồi liên kết chia sẻ ==
+User -> Frontend: Chọn quản lý liên kết và bấm "Thu hồi chia sẻ"
+activate Frontend
+
+Frontend -> Kong: DELETE /conversation-service/v1/shares/{shareToken}\n[Headers: Authorization: Bearer <token>]
+activate Kong
+
+Kong -> ConvService: Chuyển tiếp yêu cầu thu hồi
+activate ConvService
+
+ConvService -> DB: Cập nhật trạng thái shareToken (status = revoked hoặc xóa bản ghi)
+activate DB
+DB --> ConvService: OK
+deactivate DB
+
+ConvService --> Kong: Thu hồi thành công (HTTP 200 OK)
+deactivate ConvService
+Kong --> Frontend: Thu hồi thành công
+deactivate Kong
+
+Frontend --> User: Thông báo thu hồi thành công, liên kết chia sẻ không còn hiệu lực
+deactivate Frontend
+@enduml
