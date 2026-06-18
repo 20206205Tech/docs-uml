@@ -20,12 +20,12 @@ rectangle "Chức năng dành cho Admin" {
   UC_SyncElevenLabs ..> UC_ManageVoice : <<extend>>
 }
 
-Admin -- UC_ManagePersona
-Admin -- UC_ManageTtsEngine
-Admin -- UC_ManageVoice
-Admin -- UC_SyncElevenLabs
-Admin -- UC_ManagePlans
-Admin -- UC_PipelineReport
+Admin -- UC_ManagePersona #blue
+Admin -- UC_ManageTtsEngine #blue
+Admin -- UC_ManageVoice #blue
+Admin -- UC_SyncElevenLabs #blue
+Admin -- UC_ManagePlans #blue
+Admin -- UC_PipelineReport #blue
 
-UC_SyncElevenLabs --- ElevenLabs
+UC_SyncElevenLabs --- ElevenLabs #green
 @enduml

@@ -24,12 +24,12 @@ rectangle "Chức năng dành cho VIP" {
   UC_AnalyzeDocument ..> UC_DocumentStatus : <<include>>
 }
 
-VIP -- UC_AdvancedReasoning
-VIP -- UC_VoiceChat
-VIP -- UC_UploadDocument
-VIP -- UC_DocumentStatus
-VIP -- UC_RetryDocument
-VIP -- UC_AnalyzeDocument
+VIP -- UC_AdvancedReasoning #blue
+VIP -- UC_VoiceChat #blue
+VIP -- UC_UploadDocument #blue
+VIP -- UC_DocumentStatus #blue
+VIP -- UC_RetryDocument #blue
+VIP -- UC_AnalyzeDocument #blue
 
-UC_VoiceChat --- LiveKit
+UC_VoiceChat --- LiveKit #green
 @enduml

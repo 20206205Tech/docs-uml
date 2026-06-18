@@ -19,10 +19,10 @@ rectangle "Chức năng dành cho Guest" {
   UC_Home ..> UC_SampleVoice : <<include>>
 }
 
-Guest -- UC_Home
-Guest -- UC_Register
-Guest -- UC_Login
+Guest -- UC_Home #blue
+Guest -- UC_Register #blue
+Guest -- UC_Login #blue
 
-UC_Register --- Supabase
-UC_Login --- Supabase
+UC_Register --- Supabase #green
+UC_Login --- Supabase #green
 @enduml

@@ -23,19 +23,19 @@ rectangle "Chức năng dành cho User" {
   usecase "Tra cứu lịch sử giao dịch" as UC_TransactionHistory
 }
 
-User -- UC_MFA
-User -- UC_Profile
-User -- UC_Password
-User -- UC_Settings
-User -- UC_Chat
-User -- UC_Bookmark
-User -- UC_Share
-User -- UC_PurchaseVIP
-User -- UC_TransactionHistory
+User -- UC_MFA #blue
+User -- UC_Profile #blue
+User -- UC_Password #blue
+User -- UC_Settings #blue
+User -- UC_Chat #blue
+User -- UC_Bookmark #blue
+User -- UC_Share #blue
+User -- UC_PurchaseVIP #blue
+User -- UC_TransactionHistory #blue
 
-UC_MFA --- Supabase
-UC_Profile --- Supabase
-UC_Password --- Supabase
-UC_Settings --- NeonAPI
-UC_PurchaseVIP --- PaymentGateway
+UC_MFA --- Supabase #green
+UC_Profile --- Supabase #green
+UC_Password --- Supabase #green
+UC_Settings --- NeonAPI #green
+UC_PurchaseVIP --- PaymentGateway #green
 @enduml
