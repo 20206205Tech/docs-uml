@@ -5,7 +5,7 @@ participant "Auth Service" as AuthService
 participant "Database" as DB
 participant "Web Frontend" as Frontend
 
-== Người dùng Click liên kết trong Email ==
+== Luồng Người dùng Click liên kết trong Email ==
 User -> Kong: Click link khôi phục trong Email (trỏ qua Kong)
 activate Kong
 Kong -> AuthService: Gửi token xác minh khôi phục

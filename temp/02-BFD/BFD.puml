@@ -23,6 +23,16 @@ wbsDiagram {
 
 * Hệ thống tư vấn pháp luật AI
 
+** Phân hệ Cốt lõi (Core Subdomain)
+*** Dịch vụ Trò chuyện (Conversation Service)
+**** Hỏi đáp pháp lý
+**** Đánh dấu trò chuyện
+**** Chia sẻ trò chuyện
+*** Dịch vụ Chatbot (Chatbot Service)
+**** Xử lý giao tiếp
+**** Truy xuất lịch sử trò chuyện
+**** Truy xuất chi tiết trò chuyện
+
 ** Phân hệ Hỗ trợ (Supporting Subdomain)
 *** Dịch vụ Nhân vật (Persona Service)
 **** Cung cấp danh sách nhân vật
