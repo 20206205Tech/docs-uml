@@ -13,6 +13,7 @@ rectangle "Chức năng dành cho Guest" {
   usecase "Nghe thử giọng nói" as UC_SampleVoice
   usecase "Đăng ký" as UC_Register
   usecase "Đăng nhập" as UC_Login
+  usecase "Xem chia sẻ công khai" as UC_PublicShare
 
   UC_Home ..> UC_Intro : <<include>>
   UC_Home ..> UC_Pricing : <<include>>
@@ -22,7 +23,8 @@ rectangle "Chức năng dành cho Guest" {
 Guest -- UC_Home #blue
 Guest -- UC_Register #blue
 Guest -- UC_Login #blue
+Guest -- UC_PublicShare #blue
 
-UC_Register --- Supabase #green
-UC_Login --- Supabase #green
+UC_Register -- Supabase #green
+UC_Login -- Supabase #green
 @enduml
