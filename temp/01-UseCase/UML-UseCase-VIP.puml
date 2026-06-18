@@ -10,18 +10,11 @@ actor "LiveKit" as LiveKit << System >>
 VIP -|> User
 
 rectangle "Chức năng dành cho VIP" {
-  usecase "Hỏi đáp pháp lý" as UC_Chat
   usecase "Sử dụng reasoning nâng cao" as UC_AdvancedReasoning
-  usecase "Đàm thoại trực tiếp với AI\nbằng giọng nói" as UC_VoiceChat
   usecase "Tải lên tài liệu" as UC_UploadDocument
   usecase "Theo dõi trạng thái\nxử lý tài liệu" as UC_DocumentStatus
   usecase "Thử lại xử lý\ntài liệu lỗi" as UC_RetryDocument
-  usecase "Phân tích tài liệu cá nhân" as UC_AnalyzeDocument
-
-  UC_VoiceChat ..> UC_Chat : <<extend>>
-  UC_AdvancedReasoning ..> UC_Chat : <<extend>>
-  UC_AnalyzeDocument ..> UC_AdvancedReasoning : <<include>>
-  UC_AnalyzeDocument ..> UC_DocumentStatus : <<include>>
+  usecase "Đàm thoại trực tiếp với AI\nbằng giọng nói" as UC_VoiceChat
 }
 
 VIP -- UC_AdvancedReasoning #blue
@@ -29,7 +22,6 @@ VIP -- UC_VoiceChat #blue
 VIP -- UC_UploadDocument #blue
 VIP -- UC_DocumentStatus #blue
 VIP -- UC_RetryDocument #blue
-VIP -- UC_AnalyzeDocument #blue
 
 UC_VoiceChat --- LiveKit #green
 @enduml
