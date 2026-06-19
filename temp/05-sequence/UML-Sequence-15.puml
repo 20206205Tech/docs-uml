@@ -2,7 +2,7 @@
 actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
-participant "Setting Service" as SettingService
+participant "Setting Service\n(Neon API)" as SettingService
 database "Setting Neon Database" as DB
 
 == Luồng 1: Lấy thông tin Cài đặt (Get Settings) ==
