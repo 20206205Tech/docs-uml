@@ -7,7 +7,7 @@ participant "Cloud Storage" as Storage
 database "Persona DB" as DB
 
 == Luồng Quản lý nhân vật (Tạo mới / Cập nhật Persona) ==
-opt Tải lên Avatar nhân vật
+opt #AliceBlue Tải lên Avatar nhân vật
     Admin -> Frontend: Chọn ảnh đại diện nhân vật
     Frontend -> Kong: POST /code-persona-service/personas/upload-avatar\n[Headers: Authorization: Bearer <token>] (Multipart File)
     activate Kong
@@ -23,7 +23,7 @@ opt Tải lên Avatar nhân vật
     deactivate Kong
 end
 
-opt Tải lên âm thanh giới thiệu
+opt #LightCyan Tải lên âm thanh giới thiệu
     Admin -> Frontend: Chọn file âm thanh giới thiệu (MP3/WAV)
     Frontend -> Kong: POST /code-persona-service/personas/upload-audio\n[Headers: Authorization: Bearer <token>] (Multipart File)
     activate Kong

@@ -20,18 +20,18 @@ activate ElevenLabs
 ElevenLabs --> PersonaService: Trả về danh sách giọng nói (JSON)
 deactivate ElevenLabs
 
-loop Duyệt qua từng giọng nói nhận được
+loop #LightCyan Duyệt qua từng giọng nói nhận được
     PersonaService -> DB: Kiểm tra sự tồn tại của giọng nói theo Voice ID
     activate DB
     DB --> PersonaService: Kết quả kiểm tra
     deactivate DB
 
-    alt Chưa tồn tại trong hệ thống
+    alt #LightGreen Chưa tồn tại trong hệ thống
         PersonaService -> DB: INSERT Voice mới (tên, category, preview_url, engine_code='elevenlabs')
         activate DB
         DB --> PersonaService: OK
         deactivate DB
-    else Đã tồn tại
+    else #LightYellow Đã tồn tại
         PersonaService -> DB: UPDATE Voice (cập nhật tên, category, preview_url)
         activate DB
         DB --> PersonaService: OK

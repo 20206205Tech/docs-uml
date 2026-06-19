@@ -9,12 +9,12 @@ database "Chatbot DB" as ChatbotDB
 User -> ConvService: POST /code-conversation-service/chats/stream (Yêu cầu SSE)
 activate ConvService
 
-alt use_reasoning == true
+alt #AliceBlue use_reasoning == true
     ConvService -> ConvDB: Kiểm tra trạng thái VIP (isVip)
     activate ConvDB
     ConvDB --> ConvService: Trả về trạng thái VIP
     deactivate ConvDB
-    alt Không phải VIP
+    alt #LightPink Không phải VIP
         ConvService --> User: Trả về lỗi HTTP 403 Forbidden (Hủy luồng)
     end
 end
@@ -23,7 +23,7 @@ ConvService -> ConvDB: Kiểm tra Chat tồn tại (findById)
 activate ConvDB
 ConvDB --> ConvService: Trả về thông tin Chat
 deactivate ConvDB
-alt Chat không tồn tại
+alt #LightPink Chat không tồn tại
     ConvService --> User: Trả về lỗi HTTP 404 Not Found (Hủy luồng)
 end
 
@@ -37,13 +37,13 @@ deactivate ChatbotDB
 
 Chatbot -> Chatbot: Xử lý RAG (LLM + VectorDB)
 
-par Luồng sinh dữ liệu (Stream)
-    loop Nhận chunks từ RAG (type: content / status / metadata)
+par #LightCyan Luồng sinh dữ liệu (Stream)
+    loop #LightCyan Nhận chunks từ RAG (type: content / status / metadata)
         Chatbot --> ConvService: Gửi AskResponse (id, reply, type) qua gRPC
         ConvService --> User: Gửi SSE Event { type, message }
     end
-else Luồng Heartbeat (Keep-Alive)
-    loop Định kỳ 10 giây/lần
+else #LightYellow Luồng Heartbeat (Keep-Alive)
+    loop #LightYellow Định kỳ 10 giây/lần
         ConvService --> User: Gửi SSE Event { type: 'heartbeat', message: 'keep-alive' }
     end
 end
@@ -56,7 +56,7 @@ activate ChatbotDB
 ChatbotDB --> Chatbot: OK
 deactivate ChatbotDB
 
-opt Nếu chat chưa có tiêu đề
+opt #AliceBlue Nếu chat chưa có tiêu đề
     Chatbot -> Chatbot: Kích hoạt Task chạy ngầm sinh tiêu đề (start_background_topic_generation)
 end
 Chatbot -> Chatbot: Kích hoạt Task chạy ngầm tóm tắt lịch sử (start_background_history_summarization)
