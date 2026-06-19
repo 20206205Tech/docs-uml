@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Settings Service" as SettingsService
-database "Neon Database" as DB
+database "Setting Neon Database" as DB
 
 == Luồng 2: Cập nhật thông tin Cài đặt (Update Settings) ==
 User -> Frontend: Bật/Tắt các thiết lập (ví dụ: Dark Mode, Bật RAG) và bấm "Lưu"
