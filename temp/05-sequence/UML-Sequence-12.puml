@@ -2,9 +2,9 @@
 actor "User/Guest" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
-participant "Auth Service" as AuthService
-database "Database" as DB
-participant "Email Service" as Email
+participant "Auth Service\n(Supabase)" as AuthService
+database "Supabase Database" as DB
+participant "Supabase Email" as Email
 
 == Luồng 1: Khôi phục Mật khẩu do Quên (Forgot Password / Recovery) ==
 User -> Frontend: Nhập Email và nhấn "Khôi phục mật khẩu"

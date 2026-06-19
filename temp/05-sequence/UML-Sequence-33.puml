@@ -1,6 +1,6 @@
 @startuml
 participant "Payment Service" as PaymentService
-participant "Supabase (Auth)" as Supabase
+participant "Auth Service\n(Supabase)" as AuthService
 participant "Email Service" as Email
 actor "User" as User
 
@@ -9,10 +9,10 @@ actor "User" as User
 note over PaymentService: Local event handler xử lý\nSubscriptionPurchasedEvent
 activate PaymentService
 
-PaymentService -> Supabase: getProfile(userId)\nLấy email và tên người dùng
-activate Supabase
-Supabase --> PaymentService: Trả về fullName & email
-deactivate Supabase
+PaymentService -> AuthService: getProfile(userId)\nLấy email và tên người dùng
+activate AuthService
+AuthService --> PaymentService: Trả về fullName & email
+deactivate AuthService
 
 PaymentService -> Email: sendPaymentSuccessEmail\n(fullName, email, plan, periodEnd)
 activate Email

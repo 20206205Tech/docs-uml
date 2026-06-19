@@ -1,8 +1,8 @@
 @startuml
 actor "User" as User
 participant "API Gateway\n(Kong)" as Kong
-participant "Auth Service" as AuthService
-database "Database" as DB
+participant "Auth Service\n(Supabase)" as AuthService
+database "Supabase Database" as DB
 participant "Web Frontend" as Frontend
 
 == Luồng Người dùng Click liên kết trong Email ==

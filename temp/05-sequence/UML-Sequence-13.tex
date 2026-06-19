@@ -18,8 +18,8 @@ Luồng nghiệp vụ này mô tả quá trình xác thực token khi người d
 \textbf{Thành phần} & \textbf{Phân loại} & \textbf{Vai trò trong hệ thống} \\ \hline
 User & Actor & Người dùng click liên kết xác nhận. \\ \hline
 API Gateway (Kong) & Component & Chuyển tiếp yêu cầu xác nhận token và nhận phản hồi chuyển hướng. \\ \hline
-Auth Service & Microservice & Dịch vụ Supabase Auth xác minh token khôi phục và trả về HTTP 302 Redirect. \\ \hline
-Database & Database & Xác thực sự tồn tại và tính hợp lệ của token. \\ \hline
+Auth Service (Supabase) & Microservice & Dịch vụ Supabase Auth xác minh token khôi phục và trả về HTTP 302 Redirect. \\ \hline
+Supabase Database & Database & Xác thực sự tồn tại và tính hợp lệ của token. \\ \hline
 Web Frontend & Component & Ứng dụng Next.js nhận callback, lưu Access Token tạm thời từ URL Hash và chuyển sang trang reset password. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia luồng Xác nhận liên kết từ Email}
@@ -27,7 +27,7 @@ Web Frontend & Component & Ứng dụng Next.js nhận callback, lưu Access Tok
 
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
-\item Người dùng click vào link trong email. Yêu cầu chuyển qua Kong Gateway tới Auth Service để đối chiếu token trong Database.
+\item Người dùng click vào link trong email. Yêu cầu chuyển qua Kong Gateway tới Auth Service để đối chiếu token trong Supabase Database.
 \item Nếu hợp lệ, Auth Service trả về HTTP 302 Redirect hướng trình duyệt của người dùng đến địa chỉ \texttt{/auth/callback?type=recovery} của Web Frontend kèm theo token tạm trong URL Hash.
 \item Frontend nhận callback, lưu trữ token tạm thời từ Hash và chuyển hướng người dùng sang trang đặt lại mật khẩu (\texttt{/auth/reset-password}).
 \end{itemize}

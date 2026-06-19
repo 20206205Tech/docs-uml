@@ -19,9 +19,9 @@ Luồng nghiệp vụ này mô tả quy trình người dùng gửi yêu cầu k
 User/Guest & Actor & Người dùng hoặc khách yêu cầu khôi phục mật khẩu. \\ \hline
 Web Frontend & Component & Giao diện Next.js thu nhận email và gửi yêu cầu. \\ \hline
 API Gateway (Kong) & Component & Định tuyến yêu cầu phục hồi tài khoản tới Auth Service. \\ \hline
-Auth Service & Microservice & Dịch vụ Supabase Auth lưu trữ token tạm và yêu cầu gửi thư. \\ \hline
-Database & Database & Lưu trữ thông tin tài khoản và thời hạn token khôi phục. \\ \hline
-Email Service & External Service & Gửi email chứa mã liên kết tới hòm thư của người dùng. \\ \hline
+Auth Service (Supabase) & Microservice & Dịch vụ Supabase Auth lưu trữ token tạm và yêu cầu gửi thư. \\ \hline
+Supabase Database & Database & Lưu trữ thông tin tài khoản và thời hạn token khôi phục. \\ \hline
+Supabase Email & External Service & Gửi email chứa mã liên kết tới hòm thư của người dùng. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia luồng Yêu cầu Khôi phục Mật khẩu}
 \end{table}
@@ -29,5 +29,5 @@ Email Service & External Service & Gửi email chứa mã liên kết tới hòm
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
 \item Người dùng điền Email và nhấn khôi phục. Frontend gửi yêu cầu \texttt{POST /recover} qua Kong đến Auth Service.
-\item Auth Service tạo token khôi phục, ghi nhận hạn dùng trong Database và thực hiện gọi dịch vụ gửi Email chứa link xác thực tới người dùng.
+\item Auth Service tạo token khôi phục, ghi nhận hạn dùng trong Supabase Database và thực hiện gọi Supabase Email chứa link xác thực tới người dùng.
 \end{itemize}

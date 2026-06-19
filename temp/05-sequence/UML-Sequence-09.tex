@@ -19,8 +19,8 @@ Luồng nghiệp vụ này mô tả chi tiết quy trình cho phép người dù
 User & Actor & Người dùng thực hiện thay đổi thiết bị bảo mật. \\ \hline
 Web Frontend & Component & Giao diện quản lý Next.js gọi API xóa factor cũ và kích hoạt enroll factor mới. \\ \hline
 API Gateway (Kong) & Component & Định tuyến các yêu cầu xóa factor (\texttt{DELETE}) và enroll mới. \\ \hline
-Auth Service & Microservice & Dịch vụ Supabase Auth thực hiện hủy đăng ký (unenroll) factor cũ, hạ cấp token và xử lý enroll factor mới. \\ \hline
-Database & Database & Xóa thông tin factor cũ và lưu thông tin factor mới. \\ \hline
+Auth Service (Supabase) & Microservice & Dịch vụ Supabase Auth thực hiện hủy đăng ký (unenroll) factor cũ, hạ cấp token và xử lý enroll factor mới. \\ \hline
+Supabase Database & Database & Xóa thông tin factor cũ và lưu thông tin factor mới. \\ \hline
 Authenticator App & External Service & Ứng dụng di động mới của người dùng thực hiện quét QR và sinh OTP xác thực. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia luồng Thay đổi thiết bị xác thực 2 lớp}
