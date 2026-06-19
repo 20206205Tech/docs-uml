@@ -4,8 +4,6 @@ participant "Conversation Service" as ConvService
 database "Conversation DB" as ConvDB
 participant "Chatbot Service\n(gRPC + LangGraph)" as Chatbot
 database "Chatbot DB" as ChatbotDB
-participant "LLM / RAG Pipeline" as LLM
-database "VectorDB" as VectorDB
 
 == Luồng Nhắn tin văn bản (Chat Flow) ==
 User -> ConvService: POST /code-conversation-service/chats/stream (Yêu cầu SSE)
@@ -37,16 +35,10 @@ activate ChatbotDB
 ChatbotDB --> Chatbot: OK
 deactivate ChatbotDB
 
-Chatbot -> LLM: Gọi truy vấn RAG (Truy xuất dữ liệu & Gọi LLM)
-activate LLM
-LLM -> VectorDB: Truy vấn ngữ cảnh liên quan
-activate VectorDB
-VectorDB --> LLM: Trả về dữ liệu ngữ cảnh
-deactivate VectorDB
+Chatbot -> Chatbot: Xử lý RAG (LLM + VectorDB)
 
 par Luồng sinh dữ liệu (Stream)
-    loop Nhận chunks từ LLM (type: content / status / metadata)
-        LLM --> Chatbot: Trả về Chunk dữ liệu
+    loop Nhận chunks từ RAG (type: content / status / metadata)
         Chatbot --> ConvService: Gửi AskResponse (id, reply, type) qua gRPC
         ConvService --> User: Gửi SSE Event { type, message }
     end
@@ -56,8 +48,7 @@ else Luồng Heartbeat (Keep-Alive)
     end
 end
 
-LLM --> Chatbot: Tín hiệu kết thúc (Done)
-deactivate LLM
+Chatbot -> Chatbot: Hoàn tất xử lý RAG
 
 note over Chatbot, ChatbotDB: Chatbot xử lý lưu trữ trước khi ngắt gRPC
 Chatbot -> ChatbotDB: Lưu tin nhắn AI (role='ai', full_content, reasoning_steps, sources)
