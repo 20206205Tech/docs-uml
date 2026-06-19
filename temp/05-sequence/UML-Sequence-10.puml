@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Auth Service\n(PostgREST)" as AuthService
-database "Database" as DB
+database "Supabase Database" as DB
 
 == Luồng 1: Xem và Cập nhật Tên hiển thị (Get & Update Profile) ==
 User -> Frontend: Truy cập trang Hồ sơ cá nhân

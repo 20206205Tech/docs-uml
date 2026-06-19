@@ -2,7 +2,7 @@
 actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
-database "Database" as DB
+database "Supabase Database" as DB
 participant "Supabase Storage" as Storage
 participant "Auth Service\n(PostgREST)" as AuthService
 

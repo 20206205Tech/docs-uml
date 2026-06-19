@@ -2,8 +2,8 @@
 actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
-participant "Auth Service" as AuthService
-database "Database" as DB
+participant "Auth Service\n(Supabase)" as AuthService
+database "Supabase Database" as DB
 participant "Authenticator App" as AuthApp
 
 == Luồng 1: Kích hoạt xác thực 2 lớp (2FA Enrollment) ==

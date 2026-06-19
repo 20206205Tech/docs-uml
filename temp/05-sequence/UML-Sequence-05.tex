@@ -19,8 +19,8 @@ Luồng nghiệp vụ này mô tả quá trình người dùng nhấp vào liên
 Guest & Actor & Khách vãng lai thực hiện nhấp chọn liên kết xác thực. \\ \hline
 Web Frontend & Component & Trang Callback xử lý trích xuất token từ URL Hash và chuyển hướng trang. \\ \hline
 API Gateway (Kong) & Component & Cổng trung gian tiếp nhận liên kết xác thực từ người dùng và chuyển tiếp tới Auth Service. \\ \hline
-Auth Service & Microservice & Dịch vụ xác thực cập nhật trạng thái hoạt động của tài khoản và cấp cặp token JWT qua luồng redirect. \\ \hline
-Database & Database & Cập nhật thời gian kích hoạt tài khoản (\texttt{email\_confirmed\_at}). \\ \hline
+Auth Service (Supabase) & Microservice & Dịch vụ xác thực cập nhật trạng thái hoạt động của tài khoản và cấp cặp token JWT qua luồng redirect. \\ \hline
+Supabase Database & Database & Cập nhật thời gian kích hoạt tài khoản (\texttt{email\_confirmed\_at}). \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia luồng Xác nhận Email kích hoạt tài khoản}
 \end{table}

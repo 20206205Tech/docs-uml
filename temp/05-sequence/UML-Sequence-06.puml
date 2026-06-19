@@ -2,8 +2,8 @@
 actor "Guest" as Guest
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
-participant "Auth Service" as AuthService
-database "Database" as DB
+participant "Auth Service\n(Supabase)" as AuthService
+database "Supabase Database" as DB
 
 == Luồng Đăng nhập tài khoản bằng Email & Password ==
 Guest -> Frontend: Nhập Email & Password, nhấn "Đăng nhập"

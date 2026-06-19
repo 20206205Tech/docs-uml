@@ -19,8 +19,8 @@ Luồng nghiệp vụ này mô tả quá trình người dùng sử dụng tài 
 Guest & Actor & Khách vãng lai đăng nhập bằng tài khoản sẵn có. \\ \hline
 Web Frontend & Component & Giao diện tiếp nhận thông tin và lưu trữ token đăng nhập. \\ \hline
 API Gateway (Kong) & Component & Chuyển tiếp yêu cầu lấy token của người dùng tới Auth Service. \\ \hline
-Auth Service & Microservice & Xác thực thông tin tài khoản và trả trực tiếp dữ liệu token dạng JSON. \\ \hline
-Database & Database & Kiểm tra thông tin người dùng và trạng thái kích hoạt tài khoản. \\ \hline
+Auth Service (Supabase) & Microservice & Xác thực thông tin tài khoản và trả trực tiếp dữ liệu token dạng JSON. \\ \hline
+Supabase Database & Database & Kiểm tra thông tin người dùng và trạng thái kích hoạt tài khoản. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia luồng Đăng nhập bằng Email \& Password}
 \end{table}
