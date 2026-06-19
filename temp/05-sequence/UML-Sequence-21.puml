@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Conversation Service" as ConvService
-database "Neon Database" as DB
+database "Conversation Database" as DB
 
 == Luồng Đánh dấu cuộc trò chuyện (Bookmark Flow) ==
 User -> Frontend: Chọn cuộc hội thoại cần lưu, bấm "Bookmark"

@@ -1,6 +1,7 @@
 \paragraph{Sơ đồ tuần tự Lấy thông tin Cài đặt (Get Settings)}
 
-Luồng nghiệp vụ này mô tả quy trình Web Frontend truy vấn danh sách cài đặt cá nhân của người dùng từ Settings Service thông qua API Gateway.
+Luồng nghiệp vụ này
+mô tả quy trình Web Frontend truy vấn danh sách cài đặt cá nhân của người dùng từ Settings Service thông qua API Gateway.
 
 \begin{figure}[H]
 \centering
@@ -20,7 +21,7 @@ User & Actor & Người dùng thực hiện xem cấu hình cài đặt. \\ \hli
 Web Frontend & Component & Giao diện Next.js hiển thị trạng thái các tùy chọn cấu hình. \\ \hline
 API Gateway (Kong) & Component & Định tuyến yêu cầu lấy cấu hình cài đặt. \\ \hline
 Settings Service & Microservice & Dịch vụ quản lý các cấu hình cài đặt của người dùng. \\ \hline
-Neon Database & Database & Cơ sở dữ liệu Neon lưu trữ các bản ghi cài đặt dưới dạng Key-Value. \\ \hline
+Setting Neon Database & Database & Cơ sở dữ liệu Neon lưu trữ các bản ghi cài đặt dưới dạng Key-Value. \\ \hline
 \end{tabular}
 \caption{Các thành phần tham gia luồng Lấy thông tin Cài đặt}
 \end{table}
@@ -28,5 +29,5 @@ Neon Database & Database & Cơ sở dữ liệu Neon lưu trữ các bản ghi c
 \subparagraph{Mô tả chi tiết}
 \begin{itemize}
 \item Người dùng chọn trang cài đặt. Frontend thực hiện gửi yêu cầu \texttt{GET /neon-setting-service} qua Kong Gateway tới Settings Service (kèm Access Token).
-\item Settings Service truy vấn dữ liệu cài đặt từ Neon Database, sau đó trả về danh sách Key-Value (SettingItem) cho Frontend hiển thị.
+\item Settings Service truy vấn dữ liệu cài đặt từ Setting Neon Database, sau đó trả về danh sách Key-Value (SettingItem) cho Frontend hiển thị.
 \end{itemize}
