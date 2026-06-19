@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Auth Service" as AuthService
-participant "Database" as DB
+database "Database" as DB
 participant "Authenticator App" as AuthApp
 
 == Luồng 2: Xác thực 2FA khi Đăng nhập (MFA Login Challenge) ==

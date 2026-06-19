@@ -2,7 +2,7 @@
 actor "User" as User
 participant "API Gateway\n(Kong)" as Kong
 participant "Auth Service" as AuthService
-participant "Database" as DB
+database "Database" as DB
 participant "Web Frontend" as Frontend
 
 == Luồng Người dùng Click liên kết trong Email ==

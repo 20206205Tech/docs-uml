@@ -2,9 +2,9 @@
 actor "Guest" as Guest
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
-participant "Auth Service" as AuthService
-participant "Database" as DB
+participant "Auth Service\n(Supabase)" as AuthService
 participant "Google" as Google
+database "Supabase Database" as DB
 
 == Luồng Đăng nhập / Đăng ký bằng Google (OAuth Redirect Flow) ==
 Guest -> Frontend: Chọn "Đăng nhập bằng Google"

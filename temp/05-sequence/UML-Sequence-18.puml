@@ -1,10 +1,10 @@
 @startuml
 actor User as User
 participant "Conversation Service\n(NestJS)" as Conv
-participant "Conversation DB" as ConvDB
-participant "RabbitMQ Broker" as RabbitMQ
+database "Conversation DB" as ConvDB
+queue "RabbitMQ Broker" as RabbitMQ
 participant "Chatbot Service\n(Python)" as Chatbot
-participant "Chatbot DB" as ChatbotDB
+database "Chatbot DB" as ChatbotDB
 
 == Luồng Xóa cuộc trò chuyện ==
 User -> Conv: DELETE /code-conversation-service/chats/:id

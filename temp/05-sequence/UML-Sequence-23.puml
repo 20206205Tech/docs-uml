@@ -4,7 +4,7 @@ participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Persona Service" as PersonaService
 participant "ElevenLabs API" as ElevenLabs
-participant "Persona DB" as DB
+database "Persona DB" as DB
 
 == Luồng Thiết lập và đồng bộ giọng nói từ ElevenLabs (Sync ElevenLabs Voices) ==
 Admin -> Frontend: Mở trang Cấu hình giọng nói, bấm "Đồng bộ từ ElevenLabs"

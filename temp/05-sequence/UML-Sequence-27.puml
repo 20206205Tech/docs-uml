@@ -3,7 +3,7 @@ actor "Admin" as Admin
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "VBPL Pipeline\nService" as VbplService
-participant "Pipeline DB" as DB
+database "Pipeline DB" as DB
 
 == Luồng 2: Theo dõi báo cáo VBPL Pipeline (VBPL) ==
 Admin -> Frontend: Truy cập trang Bảng điều khiển (Admin Dashboard)

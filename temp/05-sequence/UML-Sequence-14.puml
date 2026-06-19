@@ -3,7 +3,7 @@ actor "User" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Auth Service" as AuthService
-participant "Database" as DB
+database "Database" as DB
 
 == Luồng 2: Đặt lại / Đổi Mật khẩu (Reset / Change Password) ==
 User -> Frontend: Nhập mật khẩu mới và nhấn "Cập nhật mật khẩu"

@@ -3,7 +3,7 @@ actor "User/Guest" as User
 participant "Web Frontend" as Frontend
 participant "API Gateway\n(Kong)" as Kong
 participant "Auth Service" as AuthService
-participant "Database" as DB
+database "Database" as DB
 participant "Email Service" as Email
 
 == Luồng 1: Khôi phục Mật khẩu do Quên (Forgot Password / Recovery) ==
