@@ -10,6 +10,9 @@ database "Supabase Database" as DB
 Guest -> Frontend: Chọn "Đăng nhập bằng Google"
 activate Frontend
 
+
+
+
 Frontend -> Guest: Chuyển hướng trình duyệt đến endpoint authorize trên Gateway
 deactivate Frontend
 
