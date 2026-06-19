@@ -53,7 +53,7 @@ deactivate Kong
 Frontend --> User: Chuyển hướng đến Payment Gateway URL
 deactivate Frontend
 
-opt Sau 10 phút nếu transaction vẫn PENDING
+opt #LightYellow Sau 10 phút nếu transaction vẫn PENDING
 Redis -> PaymentService: Nhận job payment-timeout\n{ transactionId }
 activate PaymentService
 PaymentService -> DB: Query Transaction bằng transactionId
@@ -61,7 +61,7 @@ activate DB
 DB --> PaymentService: Trả về Transaction
 deactivate DB
 
-alt Transaction vẫn PENDING
+alt #LightPink Transaction vẫn PENDING
 PaymentService -> DB: UPDATE Transaction\n(status='EXPIRED')
 activate DB
 DB --> PaymentService: OK
@@ -70,7 +70,7 @@ PaymentService -> DB: UPDATE Subscription\n(status='EXPIRED')
 activate DB
 DB --> PaymentService: OK
 deactivate DB
-else Transaction đã SUCCESS/FAILED/EXPIRED
+else #LightGreen Transaction đã SUCCESS/FAILED/EXPIRED
 PaymentService -> PaymentService: Bỏ qua xử lý timeout
 end
 deactivate PaymentService

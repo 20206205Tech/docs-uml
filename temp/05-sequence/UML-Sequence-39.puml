@@ -55,7 +55,7 @@ deactivate DocumentDB
 Worker --> RabbitMQ: Acknowledge task
 deactivate Worker
 
-alt Lỗi xử lý
+alt #LightPink Lỗi xử lý
     Worker -> DocumentDB: UPDATE status=FAILED, error_message
     Worker --> RabbitMQ: Retry hoặc reject theo cấu hình Celery
 end

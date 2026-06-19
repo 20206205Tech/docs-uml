@@ -24,7 +24,7 @@ deactivate Kong
 
 Frontend -> User: Hiển thị form chọn thư mục & ghi chú
 
-opt Nếu User muốn tạo thư mục mới
+opt #AliceBlue Nếu User muốn tạo thư mục mới
     User -> Frontend: Nhập tên thư mục mới
     Frontend -> Kong: POST /code-conversation-service/bookmarks\n{ folderName }
     activate Kong

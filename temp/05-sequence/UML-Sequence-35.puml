@@ -49,7 +49,7 @@ deactivate ConversationService
 deactivate Kong
 deactivate Frontend
 
-alt User chưa có gói thuê bao VIP
+alt #LightPink User chưa có gói thuê bao VIP
     ConversationService --> Kong: HTTP 403 Forbidden
     Kong --> Frontend: Từ chối dùng reasoning nâng cao
     Frontend --> User: Yêu cầu nâng cấp gói thuê bao VIP

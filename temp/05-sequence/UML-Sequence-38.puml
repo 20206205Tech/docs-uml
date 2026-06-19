@@ -50,7 +50,7 @@ deactivate Kong
 Frontend --> User: Hiển thị tài liệu đang xử lý nền
 deactivate Frontend
 
-alt User chưa có gói thuê bao VIP hợp lệ
+alt #LightPink User chưa có gói thuê bao VIP hợp lệ
     DocumentService --> Kong: HTTP 403 Forbidden
     Kong --> Frontend: Từ chối upload
     Frontend --> User: Yêu cầu nâng cấp gói thuê bao VIP
